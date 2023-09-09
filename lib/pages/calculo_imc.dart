@@ -173,13 +173,74 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
           itemBuilder: (BuildContext bc, int index) {
             var imc = _imc[index];
             return Dismissible(
+              confirmDismiss: (DismissDirection direction) async {
+                if (direction == DismissDirection.startToEnd) {
+                  return await showDialog(
+                    context: context,
+                    builder: (BuildContext bc) {
+                      return AlertDialog(
+                        title: const Text("Delete"),
+                        content: const Text(
+                          "Você tem certeza que deseja deletar esse Card ?",
+                        ),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text("Sim"),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text("Não"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else {
+                  return await showDialog(
+                    context: context,
+                    builder: (BuildContext bc) {
+                      return AlertDialog(
+                        title: const Text("Salvar"),
+                        content: const Text(
+                          "Você tem certeza que deseja salvar esse Card ?",
+                        ),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text("Sim"),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text("Não"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              },
               background: Container(
-                color: const Color.fromARGB(255, 11, 223, 75),
-                child: const Icon(Icons.check),
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.only(top: 10),
+                color: Colors.red,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.delete,
+                  ),
+                ),
               ),
               secondaryBackground: Container(
-                color: const Color.fromARGB(255, 228, 19, 5),
-                child: const Icon(Icons.cancel),
+                alignment: Alignment.centerRight,
+                margin: const EdgeInsets.only(top: 10),
+                color: Colors.green,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.save,
+                  ),
+                ),
               ),
               onDismissed: (DismissDirection dismissDirection) async {
                 await dadosIMCRepository.removeItem(imc.id);
@@ -194,7 +255,9 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                   title: Text(
                     "${imc.nome} : ${verificacao(imc.result)} ",
                     maxLines: 2,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
