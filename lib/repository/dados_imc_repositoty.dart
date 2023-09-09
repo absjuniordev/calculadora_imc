@@ -14,6 +14,11 @@ class DadosIMCRepository {
     _imc.remove(imc);
   }
 
+  Future<void> alterarTarefa(String id, bool concluido) async {
+    await Future.delayed(const Duration(milliseconds: 0));
+    _imc.where((tarefa) => tarefa.id == id).first.isFavorite = concluido;
+  }
+
   removeItem(String id) async {
     await Future.delayed(const Duration(milliseconds: 0));
     _imc.remove(_imc.where((imc) => imc.id == id).first);

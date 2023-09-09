@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class DadosIMC {
@@ -6,6 +7,7 @@ class DadosIMC {
   double _peso;
   double _altura;
   double _result = 0.0;
+  bool _isFavorite = false;
 
   DadosIMC(
     this._nome,
@@ -19,6 +21,7 @@ class DadosIMC {
   double get altura => _altura;
   String get nome => _nome;
   double get result => _result;
+  bool get isFavorite => _isFavorite;
 
   set nome(String nome) {
     _nome = nome;
@@ -34,5 +37,9 @@ class DadosIMC {
 
   set result(double result) {
     _result = result;
+  }
+
+  set isFavorite(bool isFavorite) {
+    _isFavorite = isFavorite;
   }
 }

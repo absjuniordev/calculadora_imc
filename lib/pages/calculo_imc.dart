@@ -21,6 +21,7 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
   var peso = 0.0;
   var altura = 0.0;
   var result = 0.0;
+  bool favorite = false;
 
   @override
   void initState() {
@@ -165,6 +166,7 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
           ),
         ),
         appBar: AppBar(
+          toolbarHeight: 100,
           centerTitle: true,
           title: const Text("Calculo IMC"),
         ),
@@ -203,11 +205,19 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                       return AlertDialog(
                         title: const Text("Salvar"),
                         content: const Text(
-                          "Você tem certeza que deseja salvar esse Card ?",
+                          "Deseja favoritar este Card?",
                         ),
                         actions: <Widget>[
                           ElevatedButton(
-                            onPressed: () => Navigator.of(context).pop(true),
+                            onPressed: () {
+                              setState(() {
+                                imc.isFavorite = true;
+                                dadosIMCRepository.alterarTarefa(
+                                    imc.id, imc.isFavorite);
+                              });
+                              Navigator.of(context).pop(false);
+                              favorite = false;
+                            },
                             child: const Text("Sim"),
                           ),
                           ElevatedButton(
@@ -238,7 +248,8 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
-                    Icons.save,
+                    Icons.check,
+                    color: Colors.amber,
                   ),
                 ),
               ),
@@ -252,6 +263,13 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                 elevation: 5,
                 color: determinarCor(imc.result),
                 child: ListTile(
+                  leading: imc.isFavorite
+                      ? const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                          size: 30,
+                        )
+                      : null,
                   title: Text(
                     "${imc.nome} : ${verificacao(imc.result)} ",
                     maxLines: 2,
