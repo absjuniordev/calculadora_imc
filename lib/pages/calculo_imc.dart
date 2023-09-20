@@ -1,7 +1,7 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
+import 'package:calculadora_imc/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
-
 import '../utils/colors_card.dart';
 import '../utils/verificacao.dart';
 
@@ -18,9 +18,7 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
   var pesoController = TextEditingController();
   var nomeController = TextEditingController();
   var alturaController = TextEditingController();
-  var peso = 0.0;
-  var altura = 0.0;
-  var result = 0.0;
+
   bool favorite = false;
 
   @override
@@ -32,12 +30,6 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
   obterIMC() async {
     _imc = await dadosIMCRepository.listasIMC();
     setState(() {});
-  }
-
-  double calculoIMC(double altura, double peso) {
-    result = peso / (altura * altura);
-    setState(() {});
-    return result;
   }
 
   @override
@@ -59,72 +51,38 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                   title:
                       const Text("Calcular IMC", textAlign: TextAlign.center),
                   content: SizedBox(
-                    width: 90,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        TextField(
+                        CustomTextField(
                           controller: nomeController,
-                          textAlign: TextAlign.start,
-                          maxLength: 25,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.black),
-                              borderRadius: BorderRadius.circular(60),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.black),
-                              borderRadius: BorderRadius.circular(60),
-                            ),
-                            labelText: "Nome",
-                            hintText: "Ex: João",
-                          ),
+                          hintText: "Ex: João",
+                          labelText: "Nome",
+                          maxLengh: 25,
+                          width: 250,
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
                               width: 80,
-                              child: TextField(
+                              child: CustomTextField(
                                 controller: pesoController,
-                                textAlign: TextAlign.start,
-                                maxLength: 3,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(60),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(60),
-                                  ),
-                                  labelText: "Peso",
-                                  hintText: "Ex:85",
-                                ),
+                                hintText: "Ex:85",
+                                labelText: "Peso",
+                                maxLengh: 3,
+                                width: 80,
                               ),
                             ),
                             const SizedBox(width: 30),
                             SizedBox(
                               width: 80,
-                              child: TextField(
+                              child: CustomTextField(
                                 controller: alturaController,
-                                maxLength: 4,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(60),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(60),
-                                  ),
-                                  labelText: "Altura",
-                                  hintText: "Ex:1.80",
-                                ),
+                                hintText: "Ex:1.85",
+                                labelText: "Altura",
+                                maxLengh: 4,
+                                width: 80,
                               ),
                             ),
                           ],
@@ -141,12 +99,16 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                     ),
                     TextButton(
                       onPressed: () async {
-                        peso = double.parse(pesoController.text);
-                        altura = double.parse(alturaController.text);
-                        result = calculoIMC(altura, peso);
+                        var result = DadosIMCRepository.calculoIMC(
+                            double.parse(alturaController.text),
+                            double.parse(pesoController.text));
 
                         await dadosIMCRepository.addIMC(
-                          DadosIMC(nomeController.text, peso, altura, result),
+                          DadosIMC(
+                              nomeController.text,
+                              double.parse(pesoController.text),
+                              double.parse(alturaController.text),
+                              result),
                         );
 
                         // ignore: use_build_context_synchronously
@@ -168,7 +130,10 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
         appBar: AppBar(
           toolbarHeight: 100,
           centerTitle: true,
-          title: const Text("Calculo IMC"),
+          title: Column(children: [
+            const Text("Calculo IMC"),
+            Text(nomeController.text),
+          ]),
         ),
         body: ListView.builder(
           itemCount: _imc.length,
@@ -270,12 +235,29 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                           size: 30,
                         )
                       : null,
-                  title: Text(
-                    "${imc.nome} : ${verificacao(imc.result)} ",
-                    maxLines: 2,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                  title: Row(
+                    children: [
+                      Text(
+                        "${verificacao(imc.result)} ",
+                        maxLines: 2,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Spacer(),
+                      Column(
+                        children: [
+                          Text(
+                            imc.dateTime,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ),
