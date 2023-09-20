@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DadosIMC {
-  final String _id = UniqueKey().toString();
+  int _id = 0;
   String _nome;
   double _peso;
   double _altura;
@@ -12,6 +12,7 @@ class DadosIMC {
   String _dateTime = DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
 
   DadosIMC(
+    this._id,
     this._nome,
     this._peso,
     this._altura,
@@ -19,12 +20,16 @@ class DadosIMC {
   );
 
   String get dateTime => _dateTime;
-  String get id => _id;
+  int get id => _id;
   double get peso => _peso;
   double get altura => _altura;
   String get nome => _nome;
   double get result => _result;
   bool get isFavorite => _isFavorite;
+
+  set id(int id) {
+    _id = id;
+  }
 
   set nome(String nome) {
     _nome = nome;

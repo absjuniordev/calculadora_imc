@@ -1,5 +1,8 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
+import 'package:calculadora_imc/pages/homes/home_appBar.dart';
 import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
+import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
+import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import '../utils/colors_card.dart';
@@ -13,7 +16,8 @@ class CalculoIMCPage extends StatefulWidget {
 }
 
 class _CalculoIMCPageState extends State<CalculoIMCPage> {
-  var dadosIMCRepository = DadosIMCRepository();
+  var dadosIMCRepository = SQLiteRepository();
+  SQLiteDatabase sql = SQLiteDatabase();
   var _imc = <DadosIMC>[];
   var pesoController = TextEditingController();
   var nomeController = TextEditingController();
@@ -28,7 +32,10 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
   }
 
   obterIMC() async {
-    _imc = await dadosIMCRepository.listasIMC();
+    _imc = await dadosIMCRepository.obterDados();
+    for (var element in _imc) {
+      nomeController.text = element.nome;
+    }
     setState(() {});
   }
 
@@ -103,8 +110,9 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                             double.parse(alturaController.text),
                             double.parse(pesoController.text));
 
-                        await dadosIMCRepository.addIMC(
+                        await dadosIMCRepository.salvar(
                           DadosIMC(
+                              0,
                               nomeController.text,
                               double.parse(pesoController.text),
                               double.parse(alturaController.text),
@@ -113,6 +121,7 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
 
                         // ignore: use_build_context_synchronously
                         Navigator.pop(context);
+                        obterIMC();
                         setState(() {});
                       },
                       child: const Text("Salvar"),
@@ -127,14 +136,7 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
             color: Colors.black,
           ),
         ),
-        appBar: AppBar(
-          toolbarHeight: 100,
-          centerTitle: true,
-          title: Column(children: [
-            const Text("Calculo IMC"),
-            Text(nomeController.text),
-          ]),
-        ),
+        appBar: getHomeAppBar(nomeController.text),
         body: ListView.builder(
           itemCount: _imc.length,
           itemBuilder: (BuildContext bc, int index) {
@@ -177,8 +179,8 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                             onPressed: () {
                               setState(() {
                                 imc.isFavorite = true;
-                                dadosIMCRepository.alterarTarefa(
-                                    imc.id, imc.isFavorite);
+                                // dadosIMCRepository.atualizar(
+                                //     imc.id, imc.isFavorite);
                               });
                               Navigator.of(context).pop(false);
                               favorite = false;
@@ -219,12 +221,12 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
                 ),
               ),
               onDismissed: (DismissDirection dismissDirection) async {
-                await dadosIMCRepository.removeItem(imc.id);
+                await dadosIMCRepository.remover(imc.id);
                 obterIMC();
               },
-              key: Key(imc.id),
+              key: Key(imc.id.toString()),
               child: Card(
-                key: Key(imc.id),
+                key: Key(imc.id.toString()),
                 elevation: 5,
                 color: determinarCor(imc.result),
                 child: ListTile(
