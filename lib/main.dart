@@ -1,4 +1,5 @@
 import 'package:calculadora_imc/pages/calculo_imc.dart';
+import 'package:calculadora_imc/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
           seedColor: const Color.fromARGB(255, 93, 9, 228),
         ),
       ),
-      home: const CalculoIMCPage(),
+      home: const SplashPage(),
     );
   }
 }
