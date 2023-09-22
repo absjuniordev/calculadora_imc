@@ -19,7 +19,11 @@ class MyApp extends StatelessWidget {
           seedColor: const Color.fromARGB(255, 93, 9, 228),
         ),
       ),
-      home: const SplashPage(),
+      routes: {
+        '/home': (context) => const CalculoIMCPage(),
+        '/splash': (context) => const SplashPage(),
+      },
+      initialRoute: '/splash',
     );
   }
 }

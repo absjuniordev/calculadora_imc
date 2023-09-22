@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:calculadora_imc/pages/calculo_imc.dart';
 import 'package:calculadora_imc/shared/constants/custom_colors.dart';
-import 'package:calculadora_imc/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+
+const _texts = ['Bem Vindo!', 'Calculadora ', 'IMC'];
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -10,6 +14,22 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => const CalculoIMCPage(),
+        ),
+      );
+    });
+    // Timer(const Duration(seconds: 4), () {
+    //   Navigator.pushNamed(context, '/home');
+    // });
+  }
+
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -25,50 +45,38 @@ class _SplashPageState extends State<SplashPage> {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Spacer(flex: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Card(
-                color: Colors.transparent,
-                elevation: 50,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: CustomColors().getCircleColor(),
-                      borderRadius: BorderRadius.circular(75)),
-                  height: 175,
-                  width: 175,
-                ),
-              ),
-              const SizedBox(width: 2),
-              Card(
-                color: Colors.transparent,
-                elevation: 50,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: CustomColors().getCircleColor(),
-                    borderRadius: BorderRadius.circular(75),
-                  ),
-                  height: 175,
-                  width: 175,
-                ),
-              ),
-            ],
-          ),
           const Spacer(flex: 1),
           Card(
+            elevation: 25,
             color: Colors.transparent,
-            elevation: 50,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: CustomColors().getCircleColor(),
-                  borderRadius: BorderRadius.circular(75)),
-              height: 190,
-              width: 300,
+            child: AnimatedTextKit(
+              animatedTexts: [
+                for (final text in _texts)
+                  TypewriterAnimatedText(
+                    text,
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
+                    textAlign: TextAlign.start,
+                  )
+              ],
             ),
           ),
-          const Spacer(flex: 5),
+          const Spacer(flex: 1),
+          const Card(
+            elevation: 100,
+            color: Colors.transparent,
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: Text(
+                "By Arnaldo Junior",
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+          )
         ],
       ),
     );
