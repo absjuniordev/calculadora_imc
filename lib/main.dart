@@ -1,4 +1,3 @@
-import 'package:calculadora_imc/pages/calculo_imc.dart';
 import 'package:calculadora_imc/pages/home_screen.dart';
 import 'package:calculadora_imc/pages/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Calculadora de IMC",
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 93, 9, 228),
-        ),
-      ),
       routes: {
         '/home_screen': (context) => const HomeScreen(),
-        '/calc': (context) => const CalculoIMCPage(),
         '/splash': (context) => const SplashPage(),
       },
       initialRoute: '/splash',

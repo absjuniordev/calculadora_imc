@@ -2,7 +2,7 @@ import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
-import 'package:calculadora_imc/utils/colors_card.dart';
+import 'package:calculadora_imc/shared/constants/colors_card.dart';
 import 'package:calculadora_imc/utils/verificacao.dart';
 import 'package:calculadora_imc/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
