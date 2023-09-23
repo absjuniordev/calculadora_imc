@@ -43,6 +43,7 @@ class _CalculoIMCPageState extends State<CalculoIMCPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.amber,
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromARGB(255, 67, 221, 36),
           onPressed: () {

@@ -1,4 +1,5 @@
 import 'package:calculadora_imc/pages/calculo_imc.dart';
+import 'package:calculadora_imc/pages/home_screen.dart';
 import 'package:calculadora_imc/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -20,10 +21,11 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/home': (context) => const CalculoIMCPage(),
+        '/home_screen': (context) => const HomeScreen(),
+        '/calc': (context) => const CalculoIMCPage(),
         '/splash': (context) => const SplashPage(),
       },
-      initialRoute: '/splash',
+      initialRoute: '/home_screen',
     );
   }
 }
