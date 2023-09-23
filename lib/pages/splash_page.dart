@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:calculadora_imc/pages/calculo_imc.dart';
 import 'package:calculadora_imc/shared/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +9,7 @@ class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashPageState createState() => _SplashPageState();
 }
 
@@ -19,15 +19,8 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => const CalculoIMCPage(),
-        ),
-      );
+      Navigator.of(context).pushReplacementNamed('/home_screen');
     });
-    // Timer(const Duration(seconds: 4), () {
-    //   Navigator.pushNamed(context, '/home');
-    // });
   }
 
   TextEditingController controller = TextEditingController();

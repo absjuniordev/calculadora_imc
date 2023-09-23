@@ -2,6 +2,7 @@ import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
+import 'package:calculadora_imc/utils/colors_card.dart';
 import 'package:calculadora_imc/utils/verificacao.dart';
 import 'package:calculadora_imc/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -175,9 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        const Text(
-                          "Oi",
-                          style: TextStyle(
+                        Text(
+                          nomeController.text,
+                          style: const TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
@@ -185,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 5),
                         const Text(
-                          "Va la",
+                          "Masculino",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -228,23 +229,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Container(
               height: MediaQuery.of(context).size.height / 1.3,
               width: double.infinity,
               padding: const EdgeInsets.only(
-                top: 20,
+                top: 15,
                 left: 15,
               ),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(45),
+                  topRight: Radius.circular(45),
                 ),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "Historico de IMC",
@@ -280,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       TextButton(
                         onPressed: () {},
                         child: const Text(
-                          "Veja mais!",
+                          "Saiba mais!",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -289,59 +290,146 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
                   SizedBox(
-                    height: 100,
+                    height: 450,
                     child: ListView.builder(
                       itemCount: _imc.length,
-                      scrollDirection: Axis.horizontal,
+                      scrollDirection: Axis.vertical,
                       itemBuilder: (context, index) {
                         var imc = _imc[index];
-                        return Container(
-                          margin: const EdgeInsets.all(8),
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 4,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
-                            child: Column(
-                              children: [
-                                ListTile(
-                                  title: Row(
-                                    children: [
-                                      Text(
-                                        "${verificacao(imc.result)} ",
-                                        maxLines: 2,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                        return Dismissible(
+                          confirmDismiss: (DismissDirection direction) async {
+                            if (direction == DismissDirection.startToEnd) {
+                              return await showDialog(
+                                context: context,
+                                builder: (BuildContext bc) {
+                                  return AlertDialog(
+                                    title: const Text("Delete"),
+                                    content: const Text(
+                                      "Você tem certeza que deseja deletar esse Card ?",
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(true),
+                                        child: const Text("Sim"),
                                       ),
-                                      const Spacer(),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            imc.dateTime,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      )
+                                      ElevatedButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(false),
+                                        child: const Text("Não"),
+                                      ),
                                     ],
-                                  ),
-                                )
+                                  );
+                                },
+                              );
+                            } else {
+                              return await showDialog(
+                                context: context,
+                                builder: (BuildContext bc) {
+                                  return AlertDialog(
+                                    title: const Text("Salvar"),
+                                    content: const Text(
+                                      "Deseja favoritar este Card?",
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            imc.isFavorite = true;
+                                            // dadosIMCRepository.atualizar(
+                                            //     imc.id, imc.isFavorite);
+                                          });
+                                          Navigator.of(context).pop(false);
+                                          favorite = false;
+                                        },
+                                        child: const Text("Sim"),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(false),
+                                        child: const Text("Não"),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          },
+                          background: Container(
+                            alignment: Alignment.centerLeft,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            color: Colors.red,
+                            child: const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Icon(
+                                Icons.delete,
+                              ),
+                            ),
+                          ),
+                          secondaryBackground: Container(
+                            alignment: Alignment.centerRight,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            color: Colors.green,
+                            child: const Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.amber,
+                              ),
+                            ),
+                          ),
+                          onDismissed:
+                              (DismissDirection dismissDirection) async {
+                            await dadosIMCRepository.remover(imc.id);
+                            obterIMC();
+                          },
+                          key: Key(imc.id.toString()),
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                              color: determinarCor(imc.result),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 4,
+                                  spreadRadius: 2,
+                                ),
                               ],
+                            ),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.15,
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Row(
+                                      children: [
+                                        Text(
+                                          "${verificacao(imc.result)} ",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              imc.dateTime,
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         );

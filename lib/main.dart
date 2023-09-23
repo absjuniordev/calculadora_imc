@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         '/calc': (context) => const CalculoIMCPage(),
         '/splash': (context) => const SplashPage(),
       },
-      initialRoute: '/home_screen',
+      initialRoute: '/splash',
     );
   }
 }
