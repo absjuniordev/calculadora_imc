@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 
 class DadosIMC {
   int _id = 0;
-  String _nome;
   double _peso;
   double _altura;
   double _result = 0.0;
@@ -14,7 +13,6 @@ class DadosIMC {
 
   DadosIMC(
     this._id,
-    this._nome,
     this._peso,
     this._altura,
     this._result,
@@ -24,16 +22,11 @@ class DadosIMC {
   int get id => _id;
   double get peso => _peso;
   double get altura => _altura;
-  String get nome => _nome;
   double get result => _result;
   bool get isFavorite => _isFavorite;
 
   set id(int id) {
     _id = id;
-  }
-
-  set nome(String nome) {
-    _nome = nome;
   }
 
   set peso(double peso) {

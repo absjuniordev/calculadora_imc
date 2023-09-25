@@ -3,6 +3,7 @@ import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/colors_card.dart';
+import 'package:calculadora_imc/shared/constants/custom_colors.dart';
 import 'package:calculadora_imc/utils/verificacao.dart';
 import 'package:calculadora_imc/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -31,18 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   obterIMC() async {
-    _imc = await dadosIMCRepository.obterDados();
-    for (var element in _imc) {
-      nomeController.text = element.nome;
-    }
+    _imc = await dadosIMCRepository.obterDadosIMC();
+
     setState(() {});
+    debugPrint(_imc.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 67, 221, 36),
+        backgroundColor: CustomColors().getGradientMainColor(),
         onPressed: () {
           pesoController.clear();
           alturaController.clear();
@@ -53,43 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
             context: context,
             builder: (BuildContext bc) {
               return AlertDialog(
-                title: const Text("Calcular IMC", textAlign: TextAlign.center),
+                title: const Text("Informe seu Peso Ataual",
+                    textAlign: TextAlign.center),
                 content: SizedBox(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CustomTextField(
-                        controller: nomeController,
-                        hintText: "Ex: João",
-                        labelText: "Nome",
-                        maxLengh: 25,
-                        width: 250,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            width: 80,
-                            child: CustomTextField(
-                              controller: pesoController,
-                              hintText: "Ex:85",
-                              labelText: "Peso",
-                              maxLengh: 3,
-                              width: 80,
-                            ),
-                          ),
-                          const SizedBox(width: 30),
-                          SizedBox(
-                            width: 80,
-                            child: CustomTextField(
-                              controller: alturaController,
-                              hintText: "Ex:1.85",
-                              labelText: "Altura",
-                              maxLengh: 4,
-                              width: 80,
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        width: 80,
+                        child: CustomTextField(
+                          controller: pesoController,
+                          hintText: "Ex:85",
+                          labelText: "Peso",
+                          maxLengh: 3,
+                          width: 80,
+                        ),
                       ),
                     ],
                   ),
@@ -104,16 +82,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   TextButton(
                     onPressed: () async {
                       var result = DadosIMCRepository.calculoIMC(
-                          double.parse(alturaController.text),
-                          double.parse(pesoController.text));
+                          2.00, double.parse(pesoController.text));
 
-                      await dadosIMCRepository.salvar(
+                      await dadosIMCRepository.salvarIMC(
                         DadosIMC(
-                            0,
-                            nomeController.text,
-                            double.parse(pesoController.text),
-                            double.parse(alturaController.text),
-                            result),
+                          0,
+                          double.parse(pesoController.text),
+                          2,
+                          result,
+                        ),
                       );
 
                       // ignore: use_build_context_synchronously
@@ -133,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Colors.black,
         ),
       ),
-      backgroundColor: Colors.green,
+      backgroundColor: CustomColors().getGradientMainColor(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -185,11 +162,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        const Text(
-                          "Masculino",
-                          style: TextStyle(
+                        Text(
+                          alturaController.text,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 160, 75, 75),
                           ),
                         ),
                         const SizedBox(height: 15),
@@ -382,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onDismissed:
                               (DismissDirection dismissDirection) async {
-                            await dadosIMCRepository.remover(imc.id);
+                            await dadosIMCRepository.removerIMC(imc.id);
                             obterIMC();
                           },
                           key: Key(imc.id.toString()),

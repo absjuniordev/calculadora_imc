@@ -5,12 +5,18 @@ import 'package:path/path.dart' as path_p;
 const scripts = {
   1: ''' CREATE TABLE IF NOT EXISTS imc (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          nome TEXT,
           peso REAL,
           altura REAL,
           result REAL,
           favorite INTEGER,
           data TEXT
+          );''',
+  2: ''' CREATE TABLE IF NOT EXISTS usuario (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          nome TEXT,
+          altura REAL,
+          sexo TEXT,
+          meta TEXT
           );'''
 };
 
