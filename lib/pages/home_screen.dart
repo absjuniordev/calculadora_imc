@@ -363,49 +363,41 @@ class _HomeScreenState extends State<HomeScreen> {
                             obterIMC();
                           },
                           key: Key(imc.id.toString()),
-                          child: Container(
-                            margin: const EdgeInsets.all(10),
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                              color: determinarCor(imc.result),
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 4,
-                                  spreadRadius: 2,
-                                ),
-                              ],
-                            ),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.15,
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title: Row(
-                                      children: [
-                                        Text(
-                                          "${verificacao(imc.result)} ",
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              imc.dateTime,
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                          child: Card(
+                            color: determinarCor(imc.result),
+                            elevation: 50,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width / 1.15,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      title: Row(
+                                        children: [
+                                          Text(
+                                            "${verificacao(imc.result)} ",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
+                                          ),
+                                          const Spacer(),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                imc.dateTime,
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
