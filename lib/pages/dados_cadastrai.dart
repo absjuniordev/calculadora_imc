@@ -9,7 +9,7 @@ class DadosCadastrais extends StatefulWidget {
 }
 
 class _DadosCadastraisState extends State<DadosCadastrais> {
-  double _alturaEscolhida = 0;
+  double _alturaEscolhida = 121;
 
   @override
   Widget build(BuildContext context) {
@@ -34,62 +34,100 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
             ),
             margin: const EdgeInsets.symmetric(vertical: 60, horizontal: 35),
             height: 600,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 30),
-                const Text(
-                  "Dados",
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 55),
-                const Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  elevation: 5,
-                  color: Color.fromARGB(131, 255, 255, 255),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.w600, color: Colors.blue),
-                      labelText: "Nome",
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 30),
+                  const Text(
+                    "Dados",
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  elevation: 5,
-                  color: const Color.fromARGB(131, 255, 255, 255),
-                  child: Slider(
-                    value: _alturaEscolhida,
-                    max: 250,
-                    label: _alturaEscolhida.toStringAsFixed(2).toString(),
-                    onChanged: (double altura) {
-                      setState(() {
-                        _alturaEscolhida = altura;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(height: 30),
-                const Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  elevation: 5,
-                  color: Color.fromARGB(131, 255, 255, 255),
-                  child: TextField(
-                    maxLines: 3,
-                    decoration: InputDecoration(
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.w600, color: Colors.blue),
-                      labelText: "Meta",
+                  const SizedBox(height: 55),
+                  const Card(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    elevation: 3,
+                    color: Color.fromARGB(131, 255, 255, 255),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelStyle: TextStyle(
+                            fontWeight: FontWeight.w600, color: Colors.blue),
+                        labelText: "Nome",
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 30),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Card(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        elevation: 3,
+                        color: Color.fromARGB(131, 255, 255, 255),
+                        child: SizedBox(
+                          width: 120,
+                          height: 100,
+                          child: Text("ioi'"),
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        elevation: 3,
+                        color: Color.fromARGB(131, 255, 255, 255),
+                        child: SizedBox(
+                          width: 120,
+                          height: 100,
+                          child: Text("ioi'"),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+                  Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    elevation: 3,
+                    color: const Color.fromARGB(131, 255, 255, 255),
+                    child: Slider(
+                      activeColor: Colors.blue,
+                      inactiveColor: Color.fromARGB(255, 13, 179, 82),
+                      value: _alturaEscolhida,
+                      min: 120,
+                      max: 250,
+                      divisions: 9,
+                      label: "Altura: ${_alturaEscolhida.toStringAsFixed(0)}",
+                      onChanged: (double altura) {
+                        setState(() {
+                          _alturaEscolhida = altura;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  const Card(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    elevation: 3,
+                    color: Color.fromARGB(131, 255, 255, 255),
+                    child: TextField(
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelStyle: TextStyle(
+                            fontWeight: FontWeight.w600, color: Colors.blue),
+                        labelText: "Meta",
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
