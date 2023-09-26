@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         '/home_screen': (context) => const HomeScreen(),
         '/splash': (context) => const SplashPage(),
       },
-      initialRoute: '/dados_cadastrais',
+      initialRoute: '/splash',
     );
   }
 }
