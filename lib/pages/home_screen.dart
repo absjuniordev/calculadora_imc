@@ -62,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         width: 80,
                         child: CustomTextField(
+                          keyboardType: TextInputType.number,
                           controller: pesoController,
                           hintText: "Ex:85",
                           labelText: "Peso",

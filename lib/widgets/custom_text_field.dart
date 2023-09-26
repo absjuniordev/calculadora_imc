@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
   TextEditingController controller;
+  TextInputType? keyboardType;
   String labelText;
   String hintText;
   int maxLengh;
-  double width;
+  double? width;
   CustomTextField({
     Key? key,
     required this.controller,
+    required this.keyboardType,
     required this.labelText,
     required this.hintText,
     required this.maxLengh,
@@ -26,6 +28,7 @@ class _CustomTextFielState extends State<CustomTextField> {
     return SizedBox(
       width: widget.width,
       child: TextField(
+        keyboardType: widget.keyboardType,
         controller: widget.controller,
         maxLength: widget.maxLengh,
         textAlign: TextAlign.start,
