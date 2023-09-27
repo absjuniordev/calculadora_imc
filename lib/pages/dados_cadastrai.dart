@@ -10,6 +10,7 @@ class DadosCadastrais extends StatefulWidget {
 
 class _DadosCadastraisState extends State<DadosCadastrais> {
   double _alturaEscolhida = 121;
+  final List<bool> _sexo = <bool>[false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +40,13 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 30),
-                  const Text(
-                    "Dados",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
+                  Card(
+                    color: Colors.transparent,
+                    elevation: 60,
+                    child: Image.asset(
+                      'assets/images/imc.png',
+                      scale: 2.5,
+                      color: const Color.fromARGB(255, 3, 84, 160),
                     ),
                   ),
                   const SizedBox(height: 55),
@@ -56,59 +58,80 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(
-                            fontWeight: FontWeight.w600, color: Colors.blue),
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blue,
+                        ),
                         labelText: "Nome",
                       ),
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        elevation: 3,
-                        color: Color.fromARGB(131, 255, 255, 255),
-                        child: SizedBox(
-                          width: 120,
-                          height: 100,
-                          child: Text("ioi'"),
-                        ),
+                  Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    elevation: 4,
+                    color: const Color.fromARGB(131, 255, 255, 255),
+                    child: ToggleButtons(
+                      direction: Axis.horizontal,
+                      onPressed: (int index) {
+                        setState(() {
+                          for (var i = 0; i < _sexo.length; i++) {
+                            _sexo[i] = i == index;
+                          }
+                        });
+                      },
+                      isSelected: _sexo,
+                      selectedBorderColor:
+                          const Color.fromARGB(255, 7, 113, 212),
+                      selectedColor: const Color.fromARGB(255, 7, 113, 212),
+                      fillColor: Colors.green[200],
+                      color: Colors.white,
+                      constraints: const BoxConstraints(
+                        minHeight: 53.0,
+                        minWidth: 139.5,
                       ),
-                      Card(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 20,
+                      children: const [
+                        Text(
+                          'Masculino',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                        elevation: 3,
-                        color: Color.fromARGB(131, 255, 255, 255),
-                        child: SizedBox(
-                          width: 120,
-                          height: 100,
-                          child: Text("ioi'"),
+                        Text(
+                          'Feminina',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 30),
                   Card(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     elevation: 3,
                     color: const Color.fromARGB(131, 255, 255, 255),
-                    child: Slider(
-                      activeColor: Colors.blue,
-                      inactiveColor: Color.fromARGB(255, 13, 179, 82),
-                      value: _alturaEscolhida,
-                      min: 120,
-                      max: 250,
-                      divisions: 9,
-                      label: "Altura: ${_alturaEscolhida.toStringAsFixed(0)}",
-                      onChanged: (double altura) {
-                        setState(() {
-                          _alturaEscolhida = altura;
-                        });
-                      },
+                    child: Row(
+                      children: [
+                        Slider(
+                          activeColor: Colors.blue,
+                          inactiveColor: const Color.fromARGB(255, 4, 153, 54),
+                          value: _alturaEscolhida,
+                          min: 120,
+                          max: 250,
+                          onChanged: (double altura) {
+                            setState(() {
+                              _alturaEscolhida = altura;
+                            });
+                          },
+                        ),
+                        Text(
+                          "Altura: ${_alturaEscolhida.toStringAsFixed(0)}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -117,11 +140,12 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                     elevation: 3,
                     color: Color.fromARGB(131, 255, 255, 255),
                     child: TextField(
-                      maxLines: 1,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(
-                            fontWeight: FontWeight.w600, color: Colors.blue),
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blue,
+                        ),
                         labelText: "Meta",
                       ),
                     ),
