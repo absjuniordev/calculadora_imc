@@ -4,24 +4,13 @@ import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
 import 'package:flutter/material.dart';
 
 class SQLiteRepository {
+  //#Dados
   Future<List<DadosIMC>> obterDadosIMC() async {
     List<DadosIMC> imc = [];
-    List<UsuarioModel> usuario = [];
 
     var db = await SQLiteDatabase().obterBanco();
     var imcResul = await db
         .rawQuery('SELECT id, altura, peso, result, favorite, data FROM imc');
-    var usuarioResul =
-        await db.rawQuery('SELECT id, nome, altura, sexo, meta FROM usuario');
-
-    for (var element in usuarioResul) {
-      usuario.add(UsuarioModel(
-          int.parse(element['id'].toString()),
-          element['nome'].toString(),
-          double.parse(element['altura'].toString()),
-          element['sexo'].toString(),
-          element['meta'].toString()));
-    }
 
     for (var element in imcResul) {
       imc.add(DadosIMC(
@@ -35,6 +24,7 @@ class SQLiteRepository {
     return imc;
   }
 
+  //#Usuario
   Future<List<UsuarioModel>> obterDadosUsuario() async {
     List<UsuarioModel> usuario = [];
 
@@ -48,7 +38,7 @@ class SQLiteRepository {
           int.parse(element['id'].toString()),
           element['nome'].toString(),
           double.parse(element['altura'].toString()),
-          element['sexo'].toString(),
+          element['sexo'] == 1,
           element['meta'].toString()));
     }
 

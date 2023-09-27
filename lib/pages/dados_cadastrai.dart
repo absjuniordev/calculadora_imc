@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../model/usuario_model.dart';
+import '../repository/sqlite/sqlite_database.dart';
+import '../repository/sqlite/sqlite_repository.dart';
 import '../shared/constants/custom_colors.dart';
 
 class DadosCadastrais extends StatefulWidget {
@@ -9,6 +12,28 @@ class DadosCadastrais extends StatefulWidget {
 }
 
 class _DadosCadastraisState extends State<DadosCadastrais> {
+  var dadosIMCRepository = SQLiteRepository();
+  SQLiteDatabase sql = SQLiteDatabase();
+  var _usuario = <UsuarioModel>[];
+  var pesoController = TextEditingController();
+  var nomeController = TextEditingController();
+  var metaController = TextEditingController();
+
+  bool favorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    obterIMC();
+  }
+
+  obterIMC() async {
+    _usuario = await dadosIMCRepository.obterDadosUsuario();
+
+    setState(() {});
+    debugPrint(_usuario.toString());
+  }
+
   double _alturaEscolhida = 121;
   final List<bool> _sexo = <bool>[false, false];
 
@@ -50,12 +75,13 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                     ),
                   ),
                   const SizedBox(height: 55),
-                  const Card(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                  Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     elevation: 3,
-                    color: Color.fromARGB(131, 255, 255, 255),
+                    color: const Color.fromARGB(131, 255, 255, 255),
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: nomeController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -135,12 +161,13 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const Card(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                  Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     elevation: 3,
-                    color: Color.fromARGB(131, 255, 255, 255),
+                    color: const Color.fromARGB(131, 255, 255, 255),
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: metaController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(
                           fontWeight: FontWeight.w600,

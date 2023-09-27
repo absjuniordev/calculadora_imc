@@ -15,7 +15,7 @@ const scripts = {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           nome TEXT,
           altura REAL,
-          sexo TEXT,
+          sexo INTEGER,
           meta TEXT
           );'''
 };
