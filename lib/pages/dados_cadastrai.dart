@@ -59,7 +59,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
               color: const Color.fromARGB(108, 158, 158, 158),
             ),
             margin: const EdgeInsets.symmetric(vertical: 60, horizontal: 35),
-            height: 600,
+            height: 650,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,7 +85,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: Colors.blue,
+                          color: Color.fromARGB(255, 16, 112, 190),
                         ),
                         labelText: "Nome",
                       ),
@@ -107,10 +107,10 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       },
                       isSelected: _sexo,
                       selectedBorderColor:
-                          const Color.fromARGB(255, 7, 113, 212),
-                      selectedColor: const Color.fromARGB(255, 7, 113, 212),
+                          const Color.fromARGB(255, 16, 112, 190),
+                      selectedColor: const Color.fromARGB(255, 16, 112, 190),
                       fillColor: Colors.green[200],
-                      color: Colors.white,
+                      color: const Color.fromARGB(255, 138, 170, 227),
                       constraints: const BoxConstraints(
                         minHeight: 53.0,
                         minWidth: 139.5,
@@ -119,12 +119,14 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         Text(
                           'Masculino',
                           style: TextStyle(
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         Text(
-                          'Feminina',
+                          'Feminino',
                           style: TextStyle(
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -139,8 +141,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                     child: Row(
                       children: [
                         Slider(
-                          activeColor: Colors.blue,
-                          inactiveColor: const Color.fromARGB(255, 4, 153, 54),
+                          activeColor: const Color.fromARGB(255, 16, 112, 190),
                           value: _alturaEscolhida,
                           min: 120,
                           max: 250,
@@ -153,8 +154,9 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         Text(
                           "Altura: ${_alturaEscolhida.toStringAsFixed(0)}",
                           style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.blue,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Color.fromARGB(255, 16, 112, 190),
                           ),
                         ),
                       ],
@@ -171,9 +173,39 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: Colors.blue,
+                          color: Color.fromARGB(255, 16, 112, 190),
                         ),
                         labelText: "Meta",
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    elevation: 3,
+                    color: Colors.transparent,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            CustomColors().getGradientMainColor(),
+                            CustomColors().getGradientSecondaryColor(),
+                          ],
+                        ),
+                      ),
+                      width: 750,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          "ENTRAR",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 16, 112, 190),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ),
                   ),
