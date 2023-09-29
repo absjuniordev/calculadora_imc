@@ -87,11 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       await dadosIMCRepository.salvarIMC(
                         DadosIMC(
-                          0,
-                          double.parse(pesoController.text),
-                          2,
-                          result,
-                        ),
+                            0, double.parse(pesoController.text), 2, result),
                       );
 
                       // ignore: use_build_context_synchronously

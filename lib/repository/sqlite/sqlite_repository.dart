@@ -38,7 +38,7 @@ class SQLiteRepository {
           int.parse(element['id'].toString()),
           element['nome'].toString(),
           double.parse(element['altura'].toString()),
-          element['sexo'] == 1,
+          element['sexo'].toString(),
           element['meta'].toString()));
     }
 

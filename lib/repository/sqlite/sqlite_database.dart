@@ -15,7 +15,7 @@ const scripts = {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           nome TEXT,
           altura REAL,
-          sexo INTEGER,
+          sexo TEXT,
           meta TEXT
           );'''
 };
@@ -49,6 +49,7 @@ class SQLiteDatabase {
         }
       },
     );
+
     return db;
   }
 }

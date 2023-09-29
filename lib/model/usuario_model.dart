@@ -3,7 +3,7 @@ class UsuarioModel {
   int _id = 0;
   String _nome;
   double _altura;
-  bool _sexo;
+  String _sexo;
   String _meta;
 
   UsuarioModel(
@@ -17,12 +17,17 @@ class UsuarioModel {
   int get id => this._id;
   String get nome => this._nome;
   double get altura => this._altura;
-  bool get sexo => this._sexo;
+  String get sexo => this._sexo;
   String get meta => this._meta;
 
   set id(int id) => this._id = id;
   set nome(String nome) => this._nome = nome;
   set altura(double altura) => this._altura = altura;
-  set sexo(bool sexo) => this._sexo = sexo;
+  set sexo(String sexo) => this._sexo = sexo;
   set meta(String meta) => this._meta = meta;
+
+  @override
+  String toString() {
+    return 'UsuarioModel(_id: $_id, _nome: $_nome, _altura: $_altura, _sexo: $_sexo, _meta: $_meta)';
+  }
 }

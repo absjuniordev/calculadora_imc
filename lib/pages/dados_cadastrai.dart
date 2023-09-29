@@ -12,14 +12,16 @@ class DadosCadastrais extends StatefulWidget {
 }
 
 class _DadosCadastraisState extends State<DadosCadastrais> {
-  var dadosIMCRepository = SQLiteRepository();
+  var usuarioIMCRepository = SQLiteRepository();
   SQLiteDatabase sql = SQLiteDatabase();
   var _usuario = <UsuarioModel>[];
-  var pesoController = TextEditingController();
+  var alturaController = TextEditingController();
   var nomeController = TextEditingController();
   var metaController = TextEditingController();
 
-  bool favorite = false;
+  double _alturaEscolhida = 120;
+  final List<bool> _sexo = <bool>[false, false];
+  String _sexoEscilhido = "";
 
   @override
   void initState() {
@@ -28,14 +30,11 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
   }
 
   obterIMC() async {
-    _usuario = await dadosIMCRepository.obterDadosUsuario();
+    _usuario = await usuarioIMCRepository.obterDadosUsuario();
 
     setState(() {});
     debugPrint(_usuario.toString());
   }
-
-  double _alturaEscolhida = 121;
-  final List<bool> _sexo = <bool>[false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +103,17 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                             _sexo[i] = i == index;
                           }
                         });
+                        switch (_sexo) {
+                          case [true, false]:
+                            _sexoEscilhido = 'Masculino';
+                            break;
+                          case [false, true]:
+                            _sexoEscilhido = 'Feminino';
+                            break;
+                        }
+                        print(_sexoEscilhido);
+
+                        print(_sexo.toString());
                       },
                       isSelected: _sexo,
                       selectedBorderColor:
@@ -144,10 +154,12 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                           activeColor: const Color.fromARGB(255, 16, 112, 190),
                           value: _alturaEscolhida,
                           min: 120,
-                          max: 250,
+                          max: 220,
                           onChanged: (double altura) {
                             setState(() {
                               _alturaEscolhida = altura;
+                              alturaController.text =
+                                  altura.toStringAsFixed(0).toString();
                             });
                           },
                         ),
@@ -198,13 +210,24 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       ),
                       width: 750,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await usuarioIMCRepository.salvarUsuario(
+                            UsuarioModel(
+                              0,
+                              nomeController.text,
+                              double.parse(alturaController.text),
+                              _sexoEscilhido,
+                              metaController.text,
+                            ),
+                          );
+                        },
                         child: const Text(
                           "ENTRAR",
                           style: TextStyle(
-                              color: Color.fromARGB(255, 16, 112, 190),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700),
+                            color: Color.fromARGB(255, 16, 112, 190),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
