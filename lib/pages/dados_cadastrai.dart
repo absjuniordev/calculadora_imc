@@ -12,8 +12,8 @@ class DadosCadastrais extends StatefulWidget {
 }
 
 class _DadosCadastraisState extends State<DadosCadastrais> {
-  var usuarioIMCRepository = SQLiteRepository();
   SQLiteDatabase sql = SQLiteDatabase();
+  var usuarioIMCRepository = SQLiteRepository();
   var _usuario = <UsuarioModel>[];
   var alturaController = TextEditingController();
   var nomeController = TextEditingController();

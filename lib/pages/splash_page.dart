@@ -1,5 +1,6 @@
-import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:calculadora_imc/model/usuario_model.dart';
+import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -13,16 +14,27 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  TextEditingController controller = TextEditingController();
+  var usuarioIMCRepository = SQLiteRepository();
+  var _usuario = <UsuarioModel>[];
+  var nome = "";
+
   @override
   void initState() {
     super.initState();
-
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacementNamed('/home_screen');
-    });
+    obterIMC();
   }
 
-  TextEditingController controller = TextEditingController();
+  obterIMC() async {
+    _usuario = await usuarioIMCRepository.obterDadosUsuario();
+
+    for (var element in _usuario) {
+      nome = element.nome;
+    }
+    setState(() {});
+    debugPrint(_usuario.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,6 +56,13 @@ class _SplashPageState extends State<SplashPage> {
             elevation: 25,
             color: Colors.transparent,
             child: AnimatedTextKit(
+              totalRepeatCount: 1,
+              onFinished: () {
+                nome.isNotEmpty
+                    ? Navigator.of(context).pushReplacementNamed('/home_screen')
+                    : Navigator.of(context)
+                        .pushReplacementNamed('/dados_cadastrais');
+              },
               animatedTexts: [
                 for (final text in _texts)
                   TypewriterAnimatedText(
