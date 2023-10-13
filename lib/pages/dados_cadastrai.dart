@@ -1,3 +1,4 @@
+import 'package:calculadora_imc/utils/mostrar_erro.dart';
 import 'package:flutter/material.dart';
 import '../model/usuario_model.dart';
 import '../repository/sqlite/sqlite_database.dart';
@@ -21,7 +22,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
 
   double _alturaEscolhida = 120;
   final List<bool> _sexo = <bool>[false, false];
-  String _sexoEscilhido = "";
+  String _sexoEscolhido = "";
 
   @override
   void initState() {
@@ -105,15 +106,12 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         });
                         switch (_sexo) {
                           case [true, false]:
-                            _sexoEscilhido = 'Masculino';
+                            _sexoEscolhido = 'Masculino';
                             break;
                           case [false, true]:
-                            _sexoEscilhido = 'Feminino';
+                            _sexoEscolhido = 'Feminino';
                             break;
                         }
-                        print(_sexoEscilhido);
-
-                        print(_sexo.toString());
                       },
                       isSelected: _sexo,
                       selectedBorderColor:
@@ -211,15 +209,48 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       width: 750,
                       child: TextButton(
                         onPressed: () async {
-                          await usuarioIMCRepository.salvarUsuario(
-                            UsuarioModel(
-                              0,
-                              nomeController.text,
-                              double.parse(alturaController.text),
-                              _sexoEscilhido,
-                              metaController.text,
-                            ),
-                          );
+                          if (nomeController.text.isEmpty) {
+                            mostrarErro(
+                                content: "Nome é obrigatório.",
+                                context: context,
+                                title: "Atenção");
+                          } else if (nomeController.text
+                              .contains(RegExp(r'[0-9]'))) {
+                            mostrarErro(
+                                content: "Invalido formato para um nome",
+                                context: context,
+                                title: "Atenção");
+                          } else if (_sexoEscolhido.isEmpty) {
+                            mostrarErro(
+                                content: "Selecione o sexo..",
+                                context: context,
+                                title: "Atenção");
+                          } else if (alturaController.text.isEmpty) {
+                            mostrarErro(
+                                content: "Altura é obrigatória.",
+                                context: context,
+                                title: "Atenção");
+                          } else if (metaController.text.isEmpty) {
+                            mostrarErro(
+                                content: "Meta é obrigatória..",
+                                context: context,
+                                title: "Atenção");
+                          } else {
+                            await usuarioIMCRepository.salvarUsuario(
+                              UsuarioModel(
+                                0,
+                                nomeController.text,
+                                double.parse(alturaController.text),
+                                _sexoEscolhido,
+                                metaController.text,
+                              ),
+                            );
+                            Future.delayed(const Duration(seconds: 2), () {
+                              const CircularProgressIndicator();
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/home_screen');
+                            });
+                          }
                         },
                         child: const Text(
                           "ENTRAR",
