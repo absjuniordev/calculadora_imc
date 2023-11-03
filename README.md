@@ -13,7 +13,7 @@ O resultado do IMC é exibido, e o usuário pode ver em qual faixa de IMC se enc
 Além do resultado atual, o aplicativo mantém um histórico dos cálculos anteriores para que os usuários possam acompanhar seu progresso e mudanças em seu IMC ao longo do tempo.
 
 ## Tecnologias Utilizadas
-Sqflite: Utilizamos o pacote Sqflite como banco de dados para armazenar os resultados do IMC e o histórico de cálculos. Isso permite que os usuários acessem facilmente suas informações anteriores e façam um acompanhamento de longo prazo.
+* Sqflite: Utilizamos o pacote Sqflite como banco de dados para armazenar os resultados do IMC e o histórico de cálculos. Isso permite que os usuários acessem facilmente suas informações anteriores e façam um acompanhamento de longo prazo.
 Configuração
 Se você deseja clonar e executar o aplicativo em seu próprio ambiente, siga estas etapas:
 
