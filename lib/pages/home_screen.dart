@@ -368,9 +368,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width / 1.15,
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     ListTile(
-                                      title: Row(
+                                      title: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "${verificacao(imc.result)} ",
@@ -378,18 +380,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          const Spacer(),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                imc.dateTime,
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          )
+                                          Text(
+                                            "Ultimo calculo em: ${imc.dateTime}",
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     )
