@@ -1,6 +1,5 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
-import 'package:calculadora_imc/pages/homes/home_floating_action_button.dart';
-import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
+import 'package:calculadora_imc/components/home_floating_action_button.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/colors_card.dart';
 import 'package:calculadora_imc/shared/constants/custom_colors.dart';
@@ -16,13 +15,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var dadosIMCRepository = SQLiteRepository();
-  SQLiteDatabase sql = SQLiteDatabase();
   var _imc = <DadosIMC>[];
   var pesoController = TextEditingController();
-  var nomeController = TextEditingController();
-  var alturaController = TextEditingController();
-
   bool favorite = false;
+ late double altura;
 
   @override
   void initState() {
@@ -32,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   obterIMC() async {
     _imc = await dadosIMCRepository.obterDadosIMC();
-
+      
     setState(() {});
     
   }
@@ -43,8 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: GetFloatingActionButton(
         update: obterIMC(),
         peso: pesoController,
-        altura: alturaController,
-        nome: nomeController,
+       
         dadosIMCRepository: dadosIMCRepository,
         
       ),
@@ -57,28 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Stack(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Icon(
-                          Icons.arrow_back_ios_new,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                      ),
-                    ],
+                 
+                  InkWell(
+                    onTap: () {},
+                    child: const Icon(
+                      Icons.more_vert,
+                      color: Colors.white,
+                      size: 25,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
@@ -92,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 15,
                         ),
                         Text(
-                          nomeController.text,
+                          "${_imc}" ,
                           style: const TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.w500,
@@ -101,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          alturaController.text,
+                          "${_imc.map((e) => e.altura)}",
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 160, 75, 75),

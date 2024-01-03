@@ -1,11 +1,14 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
+import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 
 class DadosIMCRepository {
   final List<DadosIMC> _imc = [];
+  var dadosIMCRepository = SQLiteRepository();  
+  
   static double result = 0.0;
   var peso = 0.0;
   var altura = 0.0;
-
+  
   addIMC(DadosIMC imc) async {
     await Future.delayed(const Duration(milliseconds: 0));
     
@@ -33,7 +36,8 @@ class DadosIMCRepository {
   }
 
   static double calculoIMC(double altura, double peso) {
-    result = peso / (altura * altura);
+
+   result = peso / (altura * altura);
 
     return result;
   }
