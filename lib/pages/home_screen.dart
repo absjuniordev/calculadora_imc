@@ -1,11 +1,10 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
-import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
+import 'package:calculadora_imc/pages/homes/home_floating_action_button.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/colors_card.dart';
 import 'package:calculadora_imc/shared/constants/custom_colors.dart';
 import 'package:calculadora_imc/utils/verificacao.dart';
-import 'package:calculadora_imc/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,77 +34,19 @@ class _HomeScreenState extends State<HomeScreen> {
     _imc = await dadosIMCRepository.obterDadosIMC();
 
     setState(() {});
-    debugPrint(_imc.toString());
+    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: CustomColors().getGradientMainColor(),
-        onPressed: () {
-          pesoController.clear();
-          alturaController.clear();
-          nomeController.clear();
-
-          showDialog(
-            useSafeArea: true,
-            context: context,
-            builder: (BuildContext bc) {
-              return AlertDialog(
-                title: const Text("Informe seu Peso Ataual",
-                    textAlign: TextAlign.center),
-                content: SizedBox(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        width: 80,
-                        child: CustomTextField(
-                          keyboardType: TextInputType.number,
-                          controller: pesoController,
-                          hintText: "Ex:85",
-                          labelText: "Peso",
-                          maxLengh: 3,
-                          width: 80,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Cancelar"),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      var result = DadosIMCRepository.calculoIMC(
-                          2.00, double.parse(pesoController.text));
-
-                      await dadosIMCRepository.salvarIMC(
-                        DadosIMC(
-                            0, double.parse(pesoController.text), 2, result),
-                      );
-
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context);
-                      obterIMC();
-                      setState(() {});
-                    },
-                    child: const Text("Salvar"),
-                  ),
-                ],
-              );
-            },
-          );
-        },
-        child: const Icon(
-          Icons.add,
-          color: Colors.black,
-        ),
+      floatingActionButton: GetFloatingActionButton(
+        update: obterIMC(),
+        peso: pesoController,
+        altura: alturaController,
+        nome: nomeController,
+        dadosIMCRepository: dadosIMCRepository,
+        
       ),
       backgroundColor: CustomColors().getGradientMainColor(),
       body: SingleChildScrollView(
@@ -372,7 +313,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     ListTile(
                                       title: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "${verificacao(imc.result)} ",
@@ -381,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ),
                                           Text(
-                                            "Ultimo calculo em: ${imc.dateTime}",
+                                            "Calculo em: ${imc.dateTime}",
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
