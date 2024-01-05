@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 
 class GetFloatingActionButton extends StatefulWidget {
   final TextEditingController peso;
-   final SQLiteRepository dadosIMCRepository;
-  final  Future update;
+  final SQLiteRepository dadosIMCRepository;
+  final Future update;
   const GetFloatingActionButton({
     super.key,
     required this.peso,
-    
     required this.dadosIMCRepository,
     required this.update,
   });
@@ -25,14 +24,11 @@ class GetFloatingActionButton extends StatefulWidget {
 class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
   @override
   Widget build(BuildContext context) {
-
-
-
     return FloatingActionButton(
       backgroundColor: CustomColors().getGradientMainColor(),
       onPressed: () {
         widget.peso.clear();
-       
+
         showDialog(
           useSafeArea: true,
           context: context,
@@ -68,7 +64,7 @@ class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
                 TextButton(
                   onPressed: () async {
                     var result = DadosIMCRepository.calculoIMC(
-                      2, double.parse(widget.peso.text));
+                        2, double.parse(widget.peso.text));
 
                     await widget.dadosIMCRepository.salvarIMC(
                       DadosIMC(0, double.parse(widget.peso.text), 2, result),
@@ -76,7 +72,7 @@ class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
 
                     // ignore: use_build_context_synchronously
                     Navigator.pop(context);
-                  await   widget.update;
+                    await widget.update;
                     setState(() {});
                   },
                   child: const Text("Salvar"),
