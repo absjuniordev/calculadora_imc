@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
   obterIMC() async {
     _imc = await dadosIMCRepository.obterDadosIMC();
     _user = await dadosIMCRepository.obterDadosUsuario();
-
     setState(() {});
   }
 
@@ -185,7 +184,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 5),
                   IMCListagem(
-                      imcList: _imc, userList: _user, update: obterIMC())
+                    imcList: _imc,
+                    update: obterIMC(),
+                  ),
                 ],
               ),
             )

@@ -1,6 +1,7 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/model/usuario_model.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
+import 'package:flutter/material.dart';
 
 class SQLiteRepository {
   //#Dados
@@ -19,7 +20,7 @@ class SQLiteRepository {
         double.parse(element['result'].toString()),
       ));
     }
-    // debugPrint(imcResul.toString());
+    debugPrint(imcResul.toString());
     return imc;
   }
 
@@ -40,7 +41,7 @@ class SQLiteRepository {
           element['sexo'].toString(),
           element['meta'].toString()));
     }
-      // debugPrint(usuarioResul.toString());
+    // debugPrint(usuarioResul.toString());
 
     return usuario;
   }
