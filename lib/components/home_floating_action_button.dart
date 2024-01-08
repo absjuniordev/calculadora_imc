@@ -9,11 +9,13 @@ class GetFloatingActionButton extends StatefulWidget {
   final TextEditingController peso;
   final SQLiteRepository dadosIMCRepository;
   final Future update;
+  final double altura;
   const GetFloatingActionButton({
     super.key,
     required this.peso,
     required this.dadosIMCRepository,
     required this.update,
+    required this.altura,
   });
 
   @override
@@ -64,10 +66,10 @@ class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
                 TextButton(
                   onPressed: () async {
                     var result = DadosIMCRepository.calculoIMC(
-                        2, double.parse(widget.peso.text));
-
+                        widget.altura, double.parse(widget.peso.text));
                     await widget.dadosIMCRepository.salvarIMC(
-                      DadosIMC(0, double.parse(widget.peso.text), 2, result),
+                      DadosIMC(0, double.parse(widget.peso.text), widget.altura,
+                          result),
                     );
 
                     // ignore: use_build_context_synchronously

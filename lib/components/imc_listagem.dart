@@ -127,7 +127,7 @@ class _IMCListagemState extends State<IMCListagem> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Item:  ${verificacao(imc.result)} ",
+                              "Item: ${verificacao(imc.result)} ",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),

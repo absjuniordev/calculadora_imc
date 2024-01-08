@@ -1,17 +1,15 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
-import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 
 class DadosIMCRepository {
   final List<DadosIMC> _imc = [];
-  var dadosIMCRepository = SQLiteRepository();  
-  
+
   static double result = 0.0;
   var peso = 0.0;
   var altura = 0.0;
-  
+
   addIMC(DadosIMC imc) async {
     await Future.delayed(const Duration(milliseconds: 0));
-    
+    _imc.insert(0, imc);
     _imc.add(imc);
   }
 
@@ -20,25 +18,17 @@ class DadosIMCRepository {
     _imc.remove(imc);
   }
 
-  Future<void> alterarTarefa(String id, bool concluido) async {
-    await Future.delayed(const Duration(milliseconds: 0));
-    _imc.where((tarefa) => tarefa.id == id).first.isFavorite = concluido;
-  }
-
-  removeItem(String id) async {
-    await Future.delayed(const Duration(milliseconds: 0));
-    _imc.remove(_imc.where((imc) => imc.id == id).first);
-  }
-
   Future<List<DadosIMC>> listasIMC() async {
     await Future.delayed(const Duration(milliseconds: 0));
     return _imc;
   }
 
   static double calculoIMC(double altura, double peso) {
+    if (altura <= 0 || peso <= 0) {
+      throw ArgumentError('Altura e peso devem ser valores positivos.');
+    }
 
-   result = peso / (altura * altura);
-
-    return result;
+    double resultado = peso / (altura * altura);
+    return resultado;
   }
 }

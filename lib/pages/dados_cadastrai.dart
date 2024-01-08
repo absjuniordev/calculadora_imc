@@ -74,7 +74,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       color: const Color.fromARGB(255, 3, 84, 160),
                     ),
                   ),
-                  const SizedBox(height: 55),
+                  const SizedBox(height: 20),
                   Card(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     elevation: 3,

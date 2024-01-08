@@ -19,16 +19,26 @@ class _HomeScreenState extends State<HomeScreen> {
   var _imc = <DadosIMC>[];
   var _user = <UsuarioModel>[];
   var pesoController = TextEditingController();
+  late String nomeUsuario = '';
+  late double alturaUsuario = 0.0;
 
   @override
   void initState() {
     super.initState();
     obterIMC();
+    obterUsuario();
   }
 
   obterIMC() async {
     _imc = await dadosIMCRepository.obterDadosIMC();
+    setState(() {});
+  }
+
+  obterUsuario() async {
     _user = await dadosIMCRepository.obterDadosUsuario();
+    nomeUsuario = _user.isNotEmpty ? _user[0].nome : '';
+    alturaUsuario = _user.isNotEmpty ? _user[0].altura / 100.0 : 0.0;
+
     setState(() {});
   }
 
@@ -38,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: GetFloatingActionButton(
         update: obterIMC(),
         peso: pesoController,
+        altura: alturaUsuario,
         dadosIMCRepository: dadosIMCRepository,
       ),
       backgroundColor: CustomColors().getGradientMainColor(),
@@ -69,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 15,
                         ),
                         Text(
-                          "${_user.map((e) => e.nome)}",
+                          nomeUsuario,
                           style: const TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.w500,
@@ -78,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          "${_imc.map((e) => e.altura)}",
+                          "$alturaUsuario cm",
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 160, 75, 75),
