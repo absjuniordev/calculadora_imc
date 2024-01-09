@@ -36,8 +36,10 @@ class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
           context: context,
           builder: (BuildContext bc) {
             return AlertDialog(
-              title: const Text("Informe seu Peso Ataual",
-                  textAlign: TextAlign.center),
+              title: const Text(
+                "Informe seu Peso Ataual",
+                textAlign: TextAlign.center,
+              ),
               content: SizedBox(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -66,10 +68,18 @@ class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
                 TextButton(
                   onPressed: () async {
                     var result = DadosIMCRepository.calculoIMC(
-                        widget.altura, double.parse(widget.peso.text));
+                      widget.altura,
+                      double.parse(widget.peso.text),
+                    );
+
                     await widget.dadosIMCRepository.salvarIMC(
-                      DadosIMC(0, double.parse(widget.peso.text), widget.altura,
-                          result),
+                      DadosIMC(
+                        dateTime: DateTime.now().toString(),
+                        0,
+                        double.parse(widget.peso.text),
+                        widget.altura,
+                        result,
+                      ),
                     );
 
                     // ignore: use_build_context_synchronously

@@ -3,6 +3,7 @@ import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/colors_card.dart';
 import 'package:calculadora_imc/utils/verificacao.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class IMCListagem extends StatefulWidget {
   final List<DadosIMC> imcList;
@@ -22,6 +23,7 @@ class IMCListagem extends StatefulWidget {
 class _IMCListagemState extends State<IMCListagem> {
   @override
   Widget build(BuildContext context) {
+    widget.imcList.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return SizedBox(
       height: 410,
       child: ListView.builder(
@@ -29,6 +31,9 @@ class _IMCListagemState extends State<IMCListagem> {
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           var imc = widget.imcList[index];
+          String formattedDate = DateFormat('dd/MM/yyyy HH:mm:ss').format(
+            DateTime.parse(imc.dateTime),
+          );
           return Dismissible(
             key: Key(imc.id.toString()),
             confirmDismiss: (DismissDirection direction) async {
@@ -133,7 +138,7 @@ class _IMCListagemState extends State<IMCListagem> {
                               ),
                             ),
                             Text(
-                              "Calculo em: ${imc.dateTime}",
+                              "Calculo em: $formattedDate",
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,

@@ -10,7 +10,6 @@ class DadosIMCRepository {
   addIMC(DadosIMC imc) async {
     await Future.delayed(const Duration(milliseconds: 0));
     _imc.insert(0, imc);
-    _imc.add(imc);
   }
 
   removeIMC(DadosIMC imc) async {

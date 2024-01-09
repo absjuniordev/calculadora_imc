@@ -1,7 +1,6 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/model/usuario_model.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
-import 'package:flutter/material.dart';
 
 class SQLiteRepository {
   //#Dados
@@ -9,8 +8,8 @@ class SQLiteRepository {
     List<DadosIMC> imc = [];
 
     var db = await SQLiteDatabase().obterBanco();
-    var imcResul = await db
-        .rawQuery('SELECT id, altura, peso, result, favorite, data FROM imc');
+    var imcResul = await db.rawQuery(
+        'SELECT id, altura, peso, result, favorite, data FROM imc ORDER BY data DESC');
 
     for (var element in imcResul) {
       imc.add(DadosIMC(
@@ -18,9 +17,16 @@ class SQLiteRepository {
         double.parse(element['peso'].toString()),
         double.parse(element['altura'].toString()),
         double.parse(element['result'].toString()),
+        dateTime: element['data'].toString(),
       ));
     }
-    debugPrint(imcResul.toString());
+
+    imc.sort(
+      (a, b) => DateTime.parse(b.dateTime).compareTo(
+        DateTime.parse(a.dateTime),
+      ),
+    );
+
     return imc;
   }
 
@@ -50,11 +56,12 @@ class SQLiteRepository {
     var db = await SQLiteDatabase().obterBanco();
 
     db.transaction((txn) async {
-      await txn
-          .rawInsert('INSERT INTO imc(peso, altura, result) VALUES(?, ?, ?)', [
+      await txn.rawInsert(
+          'INSERT INTO imc(peso, altura, result, data) VALUES(?, ?, ?,?)', [
         dadosIMC.peso,
         dadosIMC.altura,
         dadosIMC.result,
+        dadosIMC.dateTime,
       ]);
     });
   }
