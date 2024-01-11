@@ -1,6 +1,8 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
+import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/colors_card.dart';
+import 'package:calculadora_imc/utils/mostrar_erro.dart';
 import 'package:calculadora_imc/utils/verificacao.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -38,56 +40,25 @@ class _IMCListagemState extends State<IMCListagem> {
             key: Key(imc.id.toString()),
             confirmDismiss: (DismissDirection direction) async {
               if (direction == DismissDirection.startToEnd) {
-                return await showDialog(
+                return await customShowDialog(
+                  delete: true,
+                  title: "Deletar",
+                  content: "Deseja realmente deletar este card?",
                   context: context,
-                  builder: (BuildContext bc) {
-                    return AlertDialog(
-                      title: const Text("Delete"),
-                      content: const Text(
-                        "Você tem certeza que deseja deletar esse Card?",
-                      ),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          onPressed: () async {
-                            Navigator.of(context).pop(true);
-
-                            await widget.dadosIMCRepository.removerIMC(imc.id);
-                          },
-                          child: const Text("Sim"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: const Text("Não"),
-                        ),
-                      ],
-                    );
-                  },
+                  dadosIMCRepository: widget.dadosIMCRepository,
+                  id: imc.id,
                 );
-              } else {
-                return await showDialog(
+              } else if (direction == DismissDirection.endToStart) {
+                return await customShowDialog(
+                  delete: false,
+                  title: "Favoritar",
+                  content: "Deseja favoritar este card?",
                   context: context,
-                  builder: (BuildContext bc) {
-                    return AlertDialog(
-                      title: const Text("Salvar"),
-                      content: const Text(
-                        "Deseja favoritar este Card?",
-                      ),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(false);
-                          },
-                          child: const Text("Sim"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: const Text("Não"),
-                        ),
-                      ],
-                    );
-                  },
+                  dadosIMCRepository: widget.dadosIMCRepository,
+                  id: imc.id,
                 );
               }
+              return false; // Adicione esta linha para garantir que nada aconteça por padrão
             },
             background: Container(
               alignment: Alignment.centerLeft,

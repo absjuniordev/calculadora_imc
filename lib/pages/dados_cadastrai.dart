@@ -210,31 +210,41 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       child: TextButton(
                         onPressed: () async {
                           if (nomeController.text.isEmpty) {
-                            mostrarErro(
-                                content: "Nome é obrigatório.",
-                                context: context,
-                                title: "Atenção");
+                            customShowDialog(
+                              content: "Nome é obrigatório.",
+                              context: context,
+                              title: "Atenção",
+                              delete: false,
+                            );
                           } else if (nomeController.text
                               .contains(RegExp(r'[0-9]'))) {
-                            mostrarErro(
-                                content: "Invalido formato para um nome",
-                                context: context,
-                                title: "Atenção");
+                            customShowDialog(
+                              content: "Invalido formato para um nome",
+                              context: context,
+                              title: "Atenção",
+                              delete: false,
+                            );
                           } else if (_sexoEscolhido.isEmpty) {
-                            mostrarErro(
-                                content: "Selecione o sexo..",
-                                context: context,
-                                title: "Atenção");
+                            customShowDialog(
+                              content: "Selecione o sexo..",
+                              context: context,
+                              title: "Atenção",
+                              delete: false,
+                            );
                           } else if (alturaController.text.isEmpty) {
-                            mostrarErro(
-                                content: "Altura é obrigatória.",
-                                context: context,
-                                title: "Atenção");
+                            customShowDialog(
+                              content: "Altura é obrigatória.",
+                              context: context,
+                              title: "Atenção",
+                              delete: false,
+                            );
                           } else if (metaController.text.isEmpty) {
-                            mostrarErro(
-                                content: "Meta é obrigatória..",
-                                context: context,
-                                title: "Atenção");
+                            customShowDialog(
+                              content: "Meta é obrigatória..",
+                              context: context,
+                              title: "Atenção",
+                              delete: false,
+                            );
                           } else {
                             await usuarioIMCRepository.salvarUsuario(
                               UsuarioModel(
