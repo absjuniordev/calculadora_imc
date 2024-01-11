@@ -2,6 +2,7 @@ import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/custom_colors.dart';
+import 'package:calculadora_imc/utils/custom_show_dialgo.dart';
 import 'package:calculadora_imc/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -67,25 +68,33 @@ class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
                 ),
                 TextButton(
                   onPressed: () async {
-                    var result = DadosIMCRepository.calculoIMC(
-                      widget.altura,
-                      double.parse(widget.peso.text),
-                    );
-
-                    await widget.dadosIMCRepository.salvarIMC(
-                      DadosIMC(
-                        dateTime: DateTime.now().toString(),
-                        0,
-                        double.parse(widget.peso.text),
+                    if (widget.peso.text.isEmpty) {
+                      customShowDialog(
+                          delete: false,
+                          title: "Error",
+                          content: "A lacuna deve ser preenchida",
+                          context: context);
+                    } else {
+                      var result = DadosIMCRepository.calculoIMC(
                         widget.altura,
-                        result,
-                      ),
-                    );
+                        double.parse(widget.peso.text),
+                      );
 
-                    // ignore: use_build_context_synchronously
-                    Navigator.pop(context);
-                    await widget.update;
-                    setState(() {});
+                      await widget.dadosIMCRepository.salvarIMC(
+                        DadosIMC(
+                          dateTime: DateTime.now().toString(),
+                          0,
+                          double.parse(widget.peso.text),
+                          widget.altura,
+                          result,
+                        ),
+                      );
+
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await widget.update;
+                      setState(() {});
+                    }
                   },
                   child: const Text("Salvar"),
                 ),

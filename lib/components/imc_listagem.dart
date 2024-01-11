@@ -1,8 +1,7 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
-import 'package:calculadora_imc/repository/dados_imc_repositoty.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/colors_card.dart';
-import 'package:calculadora_imc/utils/custom_show_dialog.dart';
+import 'package:calculadora_imc/utils/custom_show_dialgo.dart';
 import 'package:calculadora_imc/utils/verificacao.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -58,7 +57,7 @@ class _IMCListagemState extends State<IMCListagem> {
                   id: imc.id,
                 );
               }
-              return false; // Adicione esta linha para garantir que nada aconteça por padrão
+              return false;
             },
             background: Container(
               alignment: Alignment.centerLeft,
