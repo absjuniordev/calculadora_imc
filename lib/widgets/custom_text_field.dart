@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
   TextEditingController controller;
@@ -28,6 +29,7 @@ class _CustomTextFielState extends State<CustomTextField> {
     return SizedBox(
       width: widget.width,
       child: TextField(
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         keyboardType: widget.keyboardType,
         controller: widget.controller,
         maxLength: widget.maxLengh,
