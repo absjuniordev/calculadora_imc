@@ -19,7 +19,7 @@ Future<dynamic> customShowDialog({
             ? TextButton(
                 onPressed: () async {
                   Navigator.of(context).pop(false);
-                  if (id != null) {
+                  if (delete) {
                     await dadosIMCRepository?.removerIMC(id);
                   }
                 },

@@ -1,4 +1,4 @@
-import 'package:calculadora_imc/utils/mostrar_erro.dart';
+import 'package:calculadora_imc/utils/custom_show_dialog.dart';
 import 'package:flutter/material.dart';
 import '../model/usuario_model.dart';
 import '../repository/sqlite/sqlite_database.dart';
