@@ -1,10 +1,11 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:calculadora_imc/model/usuario_model.dart';
+import 'package:calculadora_imc/pages/dados_cadastrai.dart';
+import 'package:calculadora_imc/pages/home_screen.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
 import 'package:calculadora_imc/shared/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
-
-const _texts = ['Bem Vindo!', 'Calculadora ', 'IMC'];
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -52,28 +53,29 @@ class _SplashPageState extends State<SplashPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Spacer(flex: 1),
-          Card(
-            elevation: 25,
-            color: Colors.transparent,
-            child: AnimatedTextKit(
-              totalRepeatCount: 1,
-              onFinished: () {
-                nome.isNotEmpty
-                    ? Navigator.of(context).pushReplacementNamed('/home_screen')
-                    : Navigator.of(context)
-                        .pushReplacementNamed('/dados_cadastrais');
-              },
-              animatedTexts: [
-                for (final text in _texts)
-                  TypewriterAnimatedText(
-                    text,
-                    textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                    textAlign: TextAlign.start,
-                  )
-              ],
+          Animate(
+            onComplete: (controller) {
+              Navigator.push(
+                context,
+                PageTransition(
+                  duration: const Duration(seconds: 2),
+                  type: PageTransitionType.theme,
+                  child: nome.isNotEmpty
+                      ? const HomeScreen()
+                      : const DadosCadastrais(),
+                ),
+              );
+            },
+            effects: const [
+              FadeEffect(
+                delay: Duration(milliseconds: 200),
+                duration: Duration(seconds: 2),
+              )
+            ],
+            child: Image.asset(
+              'assets/images/imc.png',
+              scale: 1.5,
+              color: const Color.fromARGB(255, 3, 84, 160),
             ),
           ),
           const Spacer(flex: 1),
