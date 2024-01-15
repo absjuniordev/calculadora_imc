@@ -2,12 +2,10 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:path/path.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:calculadora_imc/utils/custom_show_dialgo.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../model/usuario_model.dart';
-import '../repository/sqlite/sqlite_database.dart';
-import '../repository/sqlite/sqlite_repository.dart';
+
+import '../components/dados_cadastrais_text_button.dart';
 import '../shared/constants/custom_colors.dart';
 
 class DadosCadastrais extends StatefulWidget {
@@ -18,32 +16,14 @@ class DadosCadastrais extends StatefulWidget {
 }
 
 class _DadosCadastraisState extends State<DadosCadastrais> {
-  SQLiteDatabase sql = SQLiteDatabase();
-  var usuarioIMCRepository = SQLiteRepository();
-  var _usuario = <UsuarioModel>[];
   var alturaController = TextEditingController();
   var nomeController = TextEditingController();
   var metaController = TextEditingController();
-
+  String sexoEscolhido = "";
   double _alturaEscolhida = 120;
   final List<bool> _sexo = <bool>[false, false];
-  String _sexoEscolhido = "";
 
   XFile? photo;
-  XFile? image;
-
-  @override
-  void initState() {
-    super.initState();
-    obterIMC();
-  }
-
-  obterIMC() async {
-    _usuario = await usuarioIMCRepository.obterDadosUsuario();
-
-    setState(() {});
-    debugPrint(_usuario.toString());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,26 +71,42 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       }
                       setState(() {});
                     },
-                    child: Container(
-                      height: 140,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey,
-                      ),
-                      child: photo == null
-                          ? Image.asset(
-                              "assets/images/user.png",
-                              scale: 5,
-                            )
-                          : ClipOval(
-                              child: Image.file(
-                                width: 150,
-                                height: 150,
-                                fit: BoxFit.cover,
-                                File(photo!.path),
-                                scale: 6,
-                              ),
+                    child: Column(
+                      children: [
+                        Card(
+                          elevation: 25,
+                          shape: const CircleBorder(),
+                          child: Container(
+                            height: 140,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
                             ),
+                            child: photo == null
+                                ? Image.asset(
+                                    "assets/images/user.png",
+                                    scale: 5,
+                                  )
+                                : ClipOval(
+                                    child: Image.file(
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.cover,
+                                      File(photo!.path),
+                                      scale: 6,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                        const Card(
+                          color: Colors.transparent,
+                          elevation: 50,
+                          child: Text(
+                            "Adicionar foto",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -145,10 +141,10 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         });
                         switch (_sexo) {
                           case [true, false]:
-                            _sexoEscolhido = 'Masculino';
+                            sexoEscolhido = 'Masculino';
                             break;
                           case [false, true]:
-                            _sexoEscolhido = 'Feminino';
+                            sexoEscolhido = 'Feminino';
                             break;
                         }
                       },
@@ -229,89 +225,12 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    elevation: 3,
-                    color: Colors.transparent,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            CustomColors().getGradientMainColor(),
-                            CustomColors().getGradientSecondaryColor(),
-                          ],
-                        ),
-                      ),
-                      width: 750,
-                      child: TextButton(
-                        onPressed: () async {
-                          if (nomeController.text.isEmpty) {
-                            customShowDialog(
-                              content: "Nome é obrigatório.",
-                              context: context,
-                              title: "Atenção",
-                              delete: false,
-                            );
-                          } else if (nomeController.text
-                              .contains(RegExp(r'[0-9]'))) {
-                            customShowDialog(
-                              content: "Invalido formato para um nome",
-                              context: context,
-                              title: "Atenção",
-                              delete: false,
-                            );
-                          } else if (_sexoEscolhido.isEmpty) {
-                            customShowDialog(
-                              content: "Selecione o sexo..",
-                              context: context,
-                              title: "Atenção",
-                              delete: false,
-                            );
-                          } else if (alturaController.text.isEmpty) {
-                            customShowDialog(
-                              content: "Altura é obrigatória.",
-                              context: context,
-                              title: "Atenção",
-                              delete: false,
-                            );
-                          } else if (metaController.text.isEmpty) {
-                            customShowDialog(
-                              content: "Meta é obrigatória..",
-                              context: context,
-                              title: "Atenção",
-                              delete: false,
-                            );
-                          } else {
-                            await usuarioIMCRepository.salvarUsuario(
-                              UsuarioModel(
-                                0,
-                                nomeController.text,
-                                double.parse(alturaController.text),
-                                _sexoEscolhido,
-                                metaController.text,
-                                photo == null ? "" : photo!.path,
-                              ),
-                            );
-                            Future.delayed(const Duration(seconds: 2), () {
-                              const CircularProgressIndicator();
-                              Navigator.of(context)
-                                  .pushReplacementNamed('/home_screen');
-                            });
-                          }
-                        },
-                        child: const Text(
-                          "ENTRAR",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 16, 112, 190),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
+                  DadosCadastraisTextButton(
+                    altura: alturaController,
+                    meta: metaController,
+                    nome: nomeController,
+                    photo: photo,
+                    sexo: sexoEscolhido,
                   ),
                 ],
               ),
