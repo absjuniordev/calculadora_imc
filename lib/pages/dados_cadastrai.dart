@@ -1,5 +1,10 @@
+import 'dart:io';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:path/path.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:calculadora_imc/utils/custom_show_dialgo.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../model/usuario_model.dart';
 import '../repository/sqlite/sqlite_database.dart';
 import '../repository/sqlite/sqlite_repository.dart';
@@ -23,6 +28,9 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
   double _alturaEscolhida = 120;
   final List<bool> _sexo = <bool>[false, false];
   String _sexoEscolhido = "";
+
+  XFile? photo;
+  XFile? image;
 
   @override
   void initState() {
@@ -64,14 +72,45 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 30),
-                  Card(
-                    color: Colors.transparent,
-                    elevation: 60,
-                    child: Image.asset(
-                      'assets/images/imc.png',
-                      scale: 2.5,
-                      color: const Color.fromARGB(255, 3, 84, 160),
+                  const SizedBox(height: 20),
+                  InkWell(
+                    onTap: () async {
+                      final ImagePicker picker = ImagePicker();
+
+                      photo =
+                          await picker.pickImage(source: ImageSource.camera);
+
+                      if (photo != null) {
+                        String path = (await path_provider
+                                .getApplicationDocumentsDirectory())
+                            .path;
+                        String name = basename(photo!.path);
+                        await GallerySaver.saveImage(photo!.path);
+
+                        await photo!.saveTo("$path/$name");
+                      }
+                      setState(() {});
+                    },
+                    child: Container(
+                      height: 140,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey,
+                      ),
+                      child: photo == null
+                          ? Image.asset(
+                              "assets/images/user.png",
+                              scale: 5,
+                            )
+                          : ClipOval(
+                              child: Image.file(
+                                width: 150,
+                                height: 150,
+                                fit: BoxFit.cover,
+                                File(photo!.path),
+                                scale: 6,
+                              ),
+                            ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -253,6 +292,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                                 double.parse(alturaController.text),
                                 _sexoEscolhido,
                                 metaController.text,
+                                photo == null ? "" : photo!.path,
                               ),
                             );
                             Future.delayed(const Duration(seconds: 2), () {

@@ -36,16 +36,20 @@ class SQLiteRepository {
 
     var db = await SQLiteDatabase().obterBanco();
 
-    var usuarioResul =
-        await db.rawQuery('SELECT id, nome, altura, sexo, meta FROM usuario');
+    var usuarioResul = await db
+        .rawQuery('SELECT id, nome, altura, sexo, meta, photo FROM usuario');
 
     for (var element in usuarioResul) {
-      usuario.add(UsuarioModel(
+      usuario.add(
+        UsuarioModel(
           int.parse(element['id'].toString()),
           element['nome'].toString(),
           double.parse(element['altura'].toString()),
           element['sexo'].toString(),
-          element['meta'].toString()));
+          element['meta'].toString(),
+          element['photo'].toString(),
+        ),
+      );
     }
     // debugPrint(usuarioResul.toString());
 

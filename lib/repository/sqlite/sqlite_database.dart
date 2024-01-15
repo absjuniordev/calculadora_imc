@@ -16,7 +16,8 @@ const scripts = {
           nome TEXT,
           altura REAL,
           sexo TEXT,
-          meta TEXT
+          meta TEXT,
+          photo TEXT
           );'''
 };
 

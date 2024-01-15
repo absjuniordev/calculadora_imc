@@ -15,7 +15,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  TextEditingController controller = TextEditingController();
   var usuarioIMCRepository = SQLiteRepository();
   var _usuario = <UsuarioModel>[];
   var nome = "";
@@ -33,7 +32,6 @@ class _SplashPageState extends State<SplashPage> {
       nome = element.nome;
     }
     setState(() {});
-    debugPrint(_usuario.toString());
   }
 
   @override
@@ -58,7 +56,7 @@ class _SplashPageState extends State<SplashPage> {
               Navigator.push(
                 context,
                 PageTransition(
-                  duration: const Duration(seconds: 2),
+                  duration: const Duration(seconds: 3),
                   type: PageTransitionType.theme,
                   child: nome.isNotEmpty
                       ? const HomeScreen()
@@ -69,7 +67,7 @@ class _SplashPageState extends State<SplashPage> {
             effects: const [
               FadeEffect(
                 delay: Duration(milliseconds: 200),
-                duration: Duration(seconds: 2),
+                duration: Duration(seconds: 3),
               )
             ],
             child: Image.asset(
