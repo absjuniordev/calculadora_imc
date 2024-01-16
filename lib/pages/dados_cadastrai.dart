@@ -23,6 +23,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
   double _alturaEscolhida = 120;
   final List<bool> _sexo = <bool>[false, false];
 
+  String photo1 = "";
   XFile? photo;
 
   @override
@@ -71,6 +72,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                           await GallerySaver.saveImage(photo!.path);
 
                           await photo!.saveTo("$path/$name");
+                          print('Caminho:  $path/$name');
                         }
                         setState(() {});
                       },
@@ -248,7 +250,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       altura: alturaController,
                       meta: metaController,
                       nome: nomeController,
-                      photo: photo,
+                      photo: photo == null ? "" : photo!.path,
                       sexo: sexoEscolhido,
                     ),
                   ],

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../model/usuario_model.dart';
 import '../repository/sqlite/sqlite_repository.dart';
 import '../shared/constants/custom_colors.dart';
@@ -11,7 +9,7 @@ class DadosCadastraisTextButton extends StatefulWidget {
   final TextEditingController altura;
   final TextEditingController meta;
   final String sexo;
-  final XFile? photo;
+  final String? photo;
 
   const DadosCadastraisTextButton({
     super.key,
@@ -108,7 +106,7 @@ class _DadosCadastraisTextButtonState extends State<DadosCadastraisTextButton> {
                   double.parse(widget.altura.text),
                   widget.sexo,
                   widget.meta.text,
-                  widget.photo == null ? "" : widget.photo!.path,
+                  widget.photo == null ? "" : widget.photo!,
                 ),
               );
               Future.delayed(const Duration(seconds: 2), () {

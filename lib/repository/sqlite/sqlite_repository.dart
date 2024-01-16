@@ -1,6 +1,7 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/model/usuario_model.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
+import 'package:flutter/material.dart';
 
 class SQLiteRepository {
   //#Dados
@@ -68,6 +69,7 @@ class SQLiteRepository {
         dadosIMC.dateTime,
       ]);
     });
+
   }
 
   Future<void> salvarUsuario(UsuarioModel usuarioModel) async {
@@ -75,11 +77,12 @@ class SQLiteRepository {
 
     db.transaction((txn) async {
       await txn.rawInsert(
-          'INSERT INTO usuario(nome, altura, sexo, meta) VALUES(?, ?, ?, ?)', [
+          'INSERT INTO usuario(nome, altura, sexo, meta, photo) VALUES(?, ?, ?, ?, ?)', [
         usuarioModel.nome,
         usuarioModel.altura,
         usuarioModel.sexo,
         usuarioModel.meta,
+        usuarioModel.photo,
       ]);
     });
   }

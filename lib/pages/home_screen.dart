@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/components/home_floating_action_button.dart';
 import 'package:calculadora_imc/model/usuario_model.dart';
@@ -21,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var pesoController = TextEditingController();
   late String nomeUsuario = '';
   late double alturaUsuario = 0.0;
+  late String photo = "";
 
   @override
   void initState() {
@@ -38,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _user = await dadosIMCRepository.obterDadosUsuario();
     nomeUsuario = _user.isNotEmpty ? _user[0].nome : '';
     alturaUsuario = _user.isNotEmpty ? _user[0].altura / 100.0 : 0.0;
+    photo =  _user[0].photo ;
 
     setState(() {});
   }
@@ -73,8 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const CircleAvatar(
-                          radius: 35,
+                         CircleAvatar(
+                          backgroundImage: FileImage(File(photo)),
+                          radius: 50,
                         ),
                         const SizedBox(
                           height: 15,
