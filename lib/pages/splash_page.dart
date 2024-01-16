@@ -57,7 +57,7 @@ class _SplashPageState extends State<SplashPage> {
                 context,
                 PageTransition(
                   duration: const Duration(seconds: 3),
-                  type: PageTransitionType.theme,
+                  type: PageTransitionType.fade,
                   child: nome.isNotEmpty
                       ? const HomeScreen()
                       : const DadosCadastrais(),
@@ -66,8 +66,8 @@ class _SplashPageState extends State<SplashPage> {
             },
             effects: const [
               FadeEffect(
-                delay: Duration(milliseconds: 200),
-                duration: Duration(seconds: 3),
+                delay: Duration(seconds: 1),
+                duration: Duration(seconds: 4),
               )
             ],
             child: Image.asset(
