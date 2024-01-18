@@ -72,7 +72,6 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                           await GallerySaver.saveImage(photo!.path);
 
                           await photo!.saveTo("$path/$name");
-                          print('Caminho:  $path/$name');
                         }
                         setState(() {});
                       },
@@ -108,7 +107,9 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                             child: Text(
                               "Adicionar foto",
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           )
                         ],

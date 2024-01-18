@@ -1,13 +1,12 @@
 import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/model/usuario_model.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_database.dart';
-import 'package:flutter/material.dart';
 
 class SQLiteRepository {
   //#Dados
   Future<List<DadosIMC>> obterDadosIMC() async {
     List<DadosIMC> imc = [];
-
+ 
     var db = await SQLiteDatabase().obterBanco();
     var imcResul = await db.rawQuery(
         'SELECT id, altura, peso, result, favorite, data FROM imc ORDER BY data DESC');

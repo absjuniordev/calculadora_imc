@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _user = await dadosIMCRepository.obterDadosUsuario();
     nomeUsuario = _user.isNotEmpty ? _user[0].nome : '';
     alturaUsuario = _user.isNotEmpty ? _user[0].altura / 100.0 : 0.0;
-    photo =  _user[0].photo ;
+    photo = _user[0].photo;
 
     setState(() {});
   }
@@ -77,9 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                         CircleAvatar(
-                          backgroundImage: FileImage(File(photo)),
-                          radius: 50,
+                        CircleAvatar(
+                          backgroundImage: FileImage(
+                            File(photo),
+                          ),
+                          radius: 55,
                         ),
                         const SizedBox(
                           height: 15,
