@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late String nomeUsuario = '';
   late double alturaUsuario = 0.0;
   late String photo = "";
+  late String meta = "";
 
   @override
   void initState() {
@@ -42,6 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
     nomeUsuario = _user.isNotEmpty ? _user[0].nome : '';
     alturaUsuario = _user.isNotEmpty ? _user[0].altura / 100.0 : 0.0;
     photo = _user[0].photo;
+    meta = _user[0].meta;
+    
 
     setState(() {});
   }
@@ -95,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Text(
                                     nomeUsuario,
                                     style: const TextStyle(
-                                      fontSize: 23,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black,
                                     ),
@@ -132,12 +135,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 65,
                                       width: 180,
                                       decoration: BoxDecoration(
-                                        color: Color.fromARGB(255, 214, 207, 186),
+                                        color: const Color.fromARGB(255, 214, 207, 186),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(2),
-                                        child: Text("uahuahauhua uahuah uahauh  uahuauah uahua  uahuahuah  auhauha "),
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(2),
+                                        child: Text(meta.toString()),
                                       ),
                                     ),
                                   )
