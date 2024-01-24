@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     sexo = _user[0].sexo;
 
     setState(() {});
-    print(sexo);
+   
   }
 
   @override
@@ -62,175 +62,203 @@ class _HomeScreenState extends State<HomeScreen> {
         dadosIMCRepository: dadosIMCRepository,
       ),
       backgroundColor: CustomColors().getCircleColor(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 50),
-            ListTile(
-              title: const Text(
-                "Calculadora IMC",
-              ),
-              trailing: InkWell(
-                onTap: () {
-                  print("Notificações");
-                },
-                child: const Icon(Icons.notifications),
-              ),
+      body: Column(
+        children: [
+          const SizedBox(height: 55),
+          ListTile(
+            title: const Text(
+              "Calculadora IMC",
+              style: TextStyle(fontSize: 22),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-              child: Card(
-                elevation: 3,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(14),
-                    child: Row(
-                      children: [
-                        Card(
-                          shadowColor: const Color.fromARGB(255, 8, 189, 105),
-                          shape: const CircleBorder(),
-                          elevation: 5,
-                          child: CircleAvatar(
-                            backgroundImage: FileImage(
-                              File(photo),
-                            ),
-                            radius: 55,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                nomeUsuario,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  const Text("Altura: "),
-                                  Text(
-                                    "$alturaUsuario cm",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 160, 75, 75),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Text("Sexo: "),
-                                  Text(
-                                    sexo,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 160, 75, 75),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              Container(
-                                height: 65,
-                                width: 180,
-                                decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  color:
-                                      const Color.fromARGB(255, 214, 207, 186),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(3),
-                                  child: Text(meta),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+            trailing: InkWell(
+              onTap: () {
+              },
+              child: const Icon(Icons.notifications),
             ),
-            const SizedBox(height: 20),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.3,
-              width: double.infinity,
-              padding: const EdgeInsets.only(
-                top: 15,
-                left: 15,
-              ),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+            child: Card(
+              elevation: 3,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Historico de IMC",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    "Realize avaliações periodicamente",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Row(
                     children: [
-                      const Text(
-                        "Seus ultimos resultados",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                      Card(
+                        shadowColor: const Color.fromARGB(255, 8, 189, 105),
+                        shape: const CircleBorder(),
+                        elevation: 5,
+                        child: CircleAvatar(
+                          backgroundImage: FileImage(
+                            File(photo),
+                          ),
+                          radius: 55,
                         ),
                       ),
                       const SizedBox(width: 15),
-                      const Icon(
-                        Icons.scale,
-                        color: Colors.blue,
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Saiba mais!",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              nomeUsuario,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                const Text("Altura: "),
+                                Text(
+                                  "$alturaUsuario cm",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 160, 75, 75),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text("Sexo: "),
+                                Text(
+                                  sexo,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 160, 75, 75),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 15),
+                            Container(
+                              height: 65,
+                              width: 180,
+                              decoration: BoxDecoration(
+                                border: Border.all(),
+                                color: const Color.fromARGB(255, 214, 207, 186),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3),
+                                child: Text(meta),
+                              ),
+                            )
+                          ],
                         ),
                       )
                     ],
                   ),
-                  IMCListagem(
-                    imcList: _imc,
-                    update: obterIMC(),
-                  ),
-                ],
+                ),
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            height: MediaQuery.of(context).size.height / 1.69,
+            width: double.infinity,
+            padding: const EdgeInsets.only(
+              top: 15,
+              left: 15,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 50,),
+                const Text(
+                  "Historico de IMC",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                const Text(
+                  "Realize avaliações periodicamente",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 50),
+
+                Card(
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // IMCListagem(
+                //   imcList: _imc,
+                //   update: obterIMC(),
+                // ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
