@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:calculadora_imc/model/dados_imc.dart';
 import 'package:calculadora_imc/components/home_floating_action_button.dart';
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late double alturaUsuario = 0.0;
   late String photo = "";
   late String meta = "";
+  late String sexo = "";
 
   @override
   void initState() {
@@ -44,8 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
     alturaUsuario = _user.isNotEmpty ? _user[0].altura / 100.0 : 0.0;
     photo = _user[0].photo;
     meta = _user[0].meta;
+    sexo = _user[0].sexo;
 
     setState(() {});
+    print(sexo);
   }
 
   @override
@@ -62,29 +66,40 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             const SizedBox(height: 50),
-            const Text(
-              "Calculadora IMC",
+            ListTile(
+              title: const Text(
+                "Calculadora IMC",
+              ),
+              trailing: InkWell(
+                onTap: () {
+                  print("Notificações");
+                },
+                child: const Icon(Icons.notifications),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 29),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
               child: Card(
                 elevation: 3,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  // height: 170,
                   width: double.infinity,
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(14),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          backgroundImage: FileImage(
-                            File(photo),
+                        Card(
+                          shadowColor: const Color.fromARGB(255, 8, 189, 105),
+                          shape: const CircleBorder(),
+                          elevation: 5,
+                          child: CircleAvatar(
+                            backgroundImage: FileImage(
+                              File(photo),
+                            ),
+                            radius: 55,
                           ),
-                          radius: 55,
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -93,14 +108,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 nomeUsuario,
                                 style: const TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black,
                                 ),
                               ),
                               Row(
                                 children: [
-                                  const Text("Altura:"),
+                                  const Text("Altura: "),
                                   Text(
                                     "$alturaUsuario cm",
                                     style: const TextStyle(
@@ -112,9 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Row(
                                 children: [
-                                  const Text("Sexo:"),
+                                  const Text("Sexo: "),
                                   Text(
-                                    "$alturaUsuario",
+                                    sexo,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color.fromARGB(255, 160, 75, 75),
@@ -179,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       const Text(
@@ -207,7 +222,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 5),
                   IMCListagem(
                     imcList: _imc,
                     update: obterIMC(),
