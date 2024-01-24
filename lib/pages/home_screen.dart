@@ -9,6 +9,7 @@ import 'package:calculadora_imc/shared/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../components/imc_listagem.dart';
+import '../components/itens_navegacao.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
     sexo = _user[0].sexo;
 
     setState(() {});
-   
   }
 
   @override
@@ -71,8 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(fontSize: 22),
             ),
             trailing: InkWell(
-              onTap: () {
-              },
+              onTap: () {},
               child: const Icon(Icons.notifications),
             ),
           ),
@@ -174,83 +173,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 topRight: Radius.circular(20),
               ),
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 50,),
-                const Text(
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
                   "Historico de IMC",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 5),
-                const Text(
+                SizedBox(height: 5),
+                Text(
                   "Realize avaliações periodicamente",
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,
                   ),
                 ),
-                const SizedBox(height: 50),
+                SizedBox(height: 50),
 
-                Card(
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      Container(
-                        height: 100,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+               ItensNavegacao(),
                 // IMCListagem(
                 //   imcList: _imc,
                 //   update: obterIMC(),
