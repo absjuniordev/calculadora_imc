@@ -44,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
     alturaUsuario = _user.isNotEmpty ? _user[0].altura / 100.0 : 0.0;
     photo = _user[0].photo;
     meta = _user[0].meta;
-    
 
     setState(() {});
   }
@@ -68,91 +67,83 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 29),
-              child: Row(
-                children: [
-                  Card(
-                    elevation: 5,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      height: 170,
-                      width: 340,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: FileImage(
-                                File(photo),
+              child: Card(
+                elevation: 3,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  // height: 170,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: FileImage(
+                            File(photo),
+                          ),
+                          radius: 55,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                nomeUsuario,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
                               ),
-                              radius: 55,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 2,
-                              ),
-                              child: Column(
+                              Row(
                                 children: [
+                                  const Text("Altura:"),
                                   Text(
-                                    nomeUsuario,
+                                    "$alturaUsuario cm",
                                     style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 160, 75, 75),
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      const Text("Altura:"),
-                                      Text(
-                                        "$alturaUsuario cm",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                              Color.fromARGB(255, 160, 75, 75),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text("Sexo:"),
-                                      Text(
-                                        "$alturaUsuario",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                              Color.fromARGB(255, 160, 75, 75),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Card(
-                                    elevation: 3,
-                                    child: Container(
-                                      height: 65,
-                                      width: 180,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(255, 214, 207, 186),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child:  Padding(
-                                        padding: const EdgeInsets.all(2),
-                                        child: Text(meta.toString()),
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
+                              Row(
+                                children: [
+                                  const Text("Sexo:"),
+                                  Text(
+                                    "$alturaUsuario",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 160, 75, 75),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Container(
+                                height: 65,
+                                width: 180,
+                                decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  color:
+                                      const Color.fromARGB(255, 214, 207, 186),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3),
+                                  child: Text(meta),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             ),
             const SizedBox(height: 20),
