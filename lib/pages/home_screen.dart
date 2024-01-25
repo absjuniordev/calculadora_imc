@@ -1,15 +1,9 @@
 import 'dart:io';
-import 'dart:ui';
-
-import 'package:calculadora_imc/model/dados_imc.dart';
-import 'package:calculadora_imc/components/home_floating_action_button.dart';
 import 'package:calculadora_imc/model/usuario_model.dart';
 import 'package:calculadora_imc/repository/sqlite/sqlite_repository.dart';
-import 'package:calculadora_imc/shared/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
-
-import '../components/imc_listagem.dart';
 import '../components/itens_navegacao.dart';
+import '../shared/constants/custom_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,9 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var dadosIMCRepository = SQLiteRepository();
-  var _imc = <DadosIMC>[];
   var _user = <UsuarioModel>[];
-  var pesoController = TextEditingController();
+
   late String nomeUsuario = '';
   late double alturaUsuario = 0.0;
   late String photo = "";
@@ -32,13 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    obterIMC();
     obterUsuario();
-  }
-
-  obterIMC() async {
-    _imc = await dadosIMCRepository.obterDadosIMC();
-    setState(() {});
   }
 
   obterUsuario() async {
@@ -55,12 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: GetFloatingActionButton(
-        update: obterIMC(),
-        peso: pesoController,
-        altura: alturaUsuario,
-        dadosIMCRepository: dadosIMCRepository,
-      ),
       backgroundColor: CustomColors().getCircleColor(),
       body: Column(
         children: [
@@ -72,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             trailing: InkWell(
               onTap: () {},
-              child: const Icon(Icons.notifications),
+              child: const Icon(Icons.notifications, color: Colors.white),
             ),
           ),
           Padding(
@@ -195,12 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(height: 50),
-
-               ItensNavegacao(),
-                // IMCListagem(
-                //   imcList: _imc,
-                //   update: obterIMC(),
-                // ),
+                ItensNavegacao(),
               ],
             ),
           )

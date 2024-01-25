@@ -1,4 +1,6 @@
+import 'package:calculadora_imc/pages/imc_listagem_page.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ItensNavegacao extends StatelessWidget {
   const ItensNavegacao({super.key});
@@ -10,7 +12,16 @@ class ItensNavegacao extends StatelessWidget {
       runSpacing: 8,
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              PageTransition(
+                duration: const Duration(milliseconds: 200),
+                type: PageTransitionType.bottomToTop,
+                child: const IMCListagemPage(),
+              ),
+            );
+          },
           child: Card(
             elevation: 5,
             child: Container(

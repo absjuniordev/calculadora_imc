@@ -25,13 +25,14 @@ class GetFloatingActionButton extends StatefulWidget {
 }
 
 class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
+
+  
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: CustomColors().getGradientMainColor(),
       onPressed: () {
         widget.peso.clear();
-
         showDialog(
           useSafeArea: true,
           context: context,
