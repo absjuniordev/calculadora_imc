@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors().getCircleColor(),
+      backgroundColor: CustomColors().getGradientMainColor(),
       body: Column(
         children: [
           const SizedBox(height: 55),
@@ -53,11 +53,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             trailing: InkWell(
               onTap: () {},
-              child: const Icon(Icons.notifications, color: Colors.white),
+              child: const Icon(
+                Icons.notifications,
+                color: Colors.white,
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+            padding: const EdgeInsets.symmetric(
+              vertical: 5,
+              horizontal: 20,
+            ),
             child: Card(
               elevation: 3,
               child: Container(
@@ -65,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 width: double.infinity,
+                height: 188,
                 child: Padding(
                   padding: const EdgeInsets.all(14),
                   child: Row(
@@ -77,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundImage: FileImage(
                             File(photo),
                           ),
-                          radius: 55,
+                          radius: 60,
                         ),
                       ),
                       const SizedBox(width: 15),
@@ -87,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               nomeUsuario,
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 17,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
                               ),

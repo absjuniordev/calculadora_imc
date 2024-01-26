@@ -9,13 +9,13 @@ import 'package:flutter/material.dart';
 class GetFloatingActionButton extends StatefulWidget {
   final TextEditingController peso;
   final SQLiteRepository dadosIMCRepository;
-  final Future update;
+  final VoidCallback onUpdate;
   final double altura;
   const GetFloatingActionButton({
     super.key,
     required this.peso,
     required this.dadosIMCRepository,
-    required this.update,
+    required this.onUpdate,
     required this.altura,
   });
 
@@ -25,8 +25,6 @@ class GetFloatingActionButton extends StatefulWidget {
 }
 
 class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
-
-  
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
@@ -77,7 +75,8 @@ class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
                           context: context);
                     } else {
                       var result = DadosIMCRepository.calculoIMC(
-                        widget.altura,
+                        // widget.altura,
+                        1.78,
                         double.parse(widget.peso.text),
                       );
 
@@ -93,7 +92,7 @@ class _GetFloatingActionButtonState extends State<GetFloatingActionButton> {
 
                       // ignore: use_build_context_synchronously
                       Navigator.pop(context);
-                      await widget.update;
+                      await widget.onUpdate;
                       setState(() {});
                     }
                   },

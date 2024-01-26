@@ -26,7 +26,7 @@ class _IMCListagemState extends State<IMCListagem> {
   Widget build(BuildContext context) {
     widget.imcList.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return SizedBox(
-      height: 410,
+      height: 660,
       child: ListView.builder(
         itemCount: widget.imcList.length,
         scrollDirection: Axis.vertical,
