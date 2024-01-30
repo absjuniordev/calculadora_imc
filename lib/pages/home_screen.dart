@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors().getGradientMainColor(),
+      backgroundColor: CustomColors().scaffoldBackgroundColor,
       body: Column(
         children: [
           const SizedBox(height: 55),

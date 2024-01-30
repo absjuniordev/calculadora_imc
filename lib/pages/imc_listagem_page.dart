@@ -40,7 +40,7 @@ class _IMCListagemPageState extends State<IMCListagemPage> {
         altura: alturaUsuario,
         dadosIMCRepository: dadosIMCRepository,
       ),
-      backgroundColor: CustomColors().getGradientMainColor(),
+      backgroundColor: CustomColors().scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [

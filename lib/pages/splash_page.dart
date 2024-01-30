@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
           const Spacer(flex: 1),
           Animate(
             onComplete: (controller) {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 PageTransition(
                   duration: const Duration(seconds: 3),
