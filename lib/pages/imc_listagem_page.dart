@@ -40,70 +40,84 @@ class _IMCListagemPageState extends State<IMCListagemPage> {
         altura: alturaUsuario,
         dadosIMCRepository: dadosIMCRepository,
       ),
-      backgroundColor: CustomColors().scaffoldBackgroundColor,
+      
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 55),
-            ListTile(
-              title: const Text(
-                "Calculadora ",
-                style: TextStyle(
-                  fontSize: 22,
+        child: Container(
+            decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+            CustomColors().getGradientMainColor(),
+            CustomColors().getGradientSecondaryColor()
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            transform: const GradientRotation(5),
+          ),
+        ),
+          child: Column(
+            
+            children: [
+              const SizedBox(height: 55),
+              ListTile(
+                title: const Text(
+                  "Calculadora ",
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.white,
+                  ),
+                ),
+                leading: InkWell(
+                  onTap: () {
+                    Navigator.pop(
+                  context,
+                  
+                );
+                  },
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height / 1.157,
+                width: double.infinity,
+                padding: const EdgeInsets.only(
+                  top: 15,
+                  left: 15,
+                ),
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                ),
-              ),
-              leading: InkWell(
-                onTap: () {
-                  Navigator.pop(
-                context,
-                
-              );
-                },
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.157,
-              width: double.infinity,
-              padding: const EdgeInsets.only(
-                top: 15,
-                left: 15,
-              ),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
                   ),
-                  const Text(
-                    "Historico de IMC",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: IMCListagem(
-                      imcList: _imc,
-                      update: obterIMC(),
+                    const Text(
+                      "Historico de IMC",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: IMCListagem(
+                        imcList: _imc,
+                        update: obterIMC(),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

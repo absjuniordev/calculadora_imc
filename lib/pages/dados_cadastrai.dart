@@ -32,12 +32,13 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
             colors: [
-              CustomColors().getGradientMainColor(),
-              CustomColors().getGradientSecondaryColor(),
+            CustomColors().getGradientMainColor(),
+            CustomColors().getGradientSecondaryColor()
             ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            transform: const GradientRotation(5),
           ),
         ),
         child: Scaffold(

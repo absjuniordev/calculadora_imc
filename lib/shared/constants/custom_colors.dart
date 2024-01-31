@@ -8,16 +8,7 @@ class CustomColors {
   final Color _appBarMainColor = const Color(0xff0A6D92);
   final Color _circleColor = const Color.fromARGB(85, 139, 156, 145);
 
-  late GradientColor gradientColor;
-  late Color scaffoldBackgroundColor;
-
-  CustomColors() {
-    gradientColor = GradientColor(colors: [
-      _gradientSecColor,
-      _gradientMainColor,
-    ]);
-    scaffoldBackgroundColor = gradientColor.getColor();
-  }
+ 
 
   Color getActivePrimaryButtonColor() {
     return _activePrimaryButton;
@@ -44,27 +35,4 @@ class CustomColors {
   }
 }
 
-class GradientColor extends StatelessWidget {
-  final List<Color> colors;
 
-  const GradientColor({Key? key, required this.colors}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: colors,
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          // transform: GradientRotation(5),
-        
-        ),
-      ),
-    );
-  }
-
-  Color getColor() {
-    return colors.isEmpty ? Colors.transparent : colors[colors.length ~/ 2];
-  }
-}
