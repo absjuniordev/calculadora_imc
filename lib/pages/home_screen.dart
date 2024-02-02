@@ -84,6 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
+                                 color: Color.fromARGB(255, 240, 234, 234),
+
                   ),
                   width: double.infinity,
                   height: 188,
@@ -171,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 left: 15,
               ),
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: Color.fromARGB(255, 240, 234, 234),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
