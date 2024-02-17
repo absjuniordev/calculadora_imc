@@ -7,9 +7,11 @@ class ItensNavegacao extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+      spacing: size.height / 88,
+      runSpacing: size.height / 40,
       children: [
         InkWell(
           onTap: () {
@@ -25,8 +27,8 @@ class ItensNavegacao extends StatelessWidget {
           child: Card(
             elevation: 5,
             child: Container(
-              height: 100,
-              width: 110,
+              height: size.height / 6,
+              width: size.width / 3.5,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
@@ -39,8 +41,8 @@ class ItensNavegacao extends StatelessWidget {
           child: Card(
             elevation: 5,
             child: Container(
-              height: 100,
-              width: 110,
+              height: size.height / 6,
+              width: size.width / 3.5,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
@@ -53,8 +55,8 @@ class ItensNavegacao extends StatelessWidget {
           child: Card(
             elevation: 5,
             child: Container(
-              height: 100,
-              width: 110,
+              height: size.height / 6,
+              width: size.width / 3.5,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
@@ -67,8 +69,8 @@ class ItensNavegacao extends StatelessWidget {
           child: Card(
             elevation: 5,
             child: Container(
-              height: 100,
-              width: 110,
+              height: size.height / 6,
+              width: size.width / 3.5,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
@@ -81,8 +83,8 @@ class ItensNavegacao extends StatelessWidget {
           child: Card(
             elevation: 5,
             child: Container(
-              height: 100,
-              width: 110,
+              height: size.height / 6,
+              width: size.width / 3.5,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
@@ -95,8 +97,8 @@ class ItensNavegacao extends StatelessWidget {
           child: Card(
             elevation: 5,
             child: Container(
-              height: 100,
-              width: 110,
+              height: size.height / 6,
+              width: size.width / 3.5,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),

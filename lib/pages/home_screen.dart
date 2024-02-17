@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -52,43 +53,46 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              transform: const GradientRotation(5),
+              transform: const GradientRotation(9),
             ),
           ),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: size.width / 20),
                 child: ListTile(
-                  title: const Text(
+                  title: Text(
                     "Calculadora IMC",
-                    style: TextStyle(fontSize: 22, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: size.height / 29,
+                      color: Colors.white,
+                    ),
                   ),
                   trailing: InkWell(
                     onTap: () {},
-                    child: const Icon(
+                    child: Icon(
                       Icons.notifications,
                       color: Colors.white,
+                      size: size.height / 29,
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 1,
-                  horizontal: 20,
+                padding: EdgeInsets.symmetric(
+                  vertical: size.height / 70,
+                  horizontal: size.height / 50,
                 ),
                 child: Card(
                   elevation: 3,
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(size.height),
                       color: const Color.fromARGB(255, 240, 234, 234),
                     ),
-                    width: double.infinity,
-                    height: 188,
+                    height: size.height / 4,
                     child: Padding(
-                      padding: const EdgeInsets.all(14),
+                      padding: const EdgeInsets.all(8),
                       child: Row(
                         children: [
                           Card(
@@ -99,61 +103,85 @@ class _HomeScreenState extends State<HomeScreen> {
                               backgroundImage: FileImage(
                                 File(photo),
                               ),
-                              radius: 60,
+                              radius: size.height / 12,
                             ),
                           ),
-                          const SizedBox(width: 10),
                           Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  nomeUsuario,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 2,
+                                horizontal: 20,
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    nomeUsuario,
+                                    style: TextStyle(
+                                      fontSize: size.height * .04,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    const Text("Altura: "),
-                                    Text(
-                                      "$alturaUsuario cm",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 160, 75, 75),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Altura: ",
+                                        style: TextStyle(
+                                          fontSize: size.height * .020,
+                                        ),
+                                      ),
+                                      Text(
+                                        "$alturaUsuario cm",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color.fromARGB(
+                                              255, 160, 75, 75),
+                                          fontSize: size.height * .020,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Sexo: ",
+                                        style: TextStyle(
+                                          fontSize: size.height * .020,
+                                        ),
+                                      ),
+                                      Text(
+                                        sexo,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color.fromARGB(
+                                              255, 160, 75, 75),
+                                          fontSize: size.height * .020,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Container(
+                                    height: size.height / 11.8,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      color: const Color.fromARGB(
+                                          255, 214, 207, 186),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5),
+                                      child: Text(
+                                        meta,
+                                        style: TextStyle(
+                                          fontSize: size.width / 27,
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const Text("Sexo: "),
-                                    Text(
-                                      sexo,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 160, 75, 75),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 15),
-                                Container(
-                                  height: 70,
-                                  width: 180,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(),
-                                    color: const Color.fromARGB(
-                                        255, 214, 207, 186),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(3),
-                                    child: Text(meta),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
@@ -162,45 +190,39 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-              Container(
-                height: MediaQuery.of(context).size.height / 1.645,
-                width: double.infinity,
-                padding: const EdgeInsets.only(
-                  top: 15,
-                  left: 15,
-                ),
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 240, 234, 234),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+              SizedBox(height: size.height * .018),
+              Expanded(
+                child: Container(
+                  width: size.width,
+                  padding: const EdgeInsets.only(
+                    top: 20,
                   ),
-                ),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 50,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 240, 234, 234),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                     ),
-                    Text(
-                      "Historico de IMC",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: size.height * .04,
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      "Realize avaliações periodicamente",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
+                      const SizedBox(height: 1),
+                      Text(
+                        "Realize avaliações periodicamente",
+                        style: TextStyle(
+                          fontSize: size.height / 40,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 50),
-                    ItensNavegacao(),
-                  ],
+                      SizedBox(
+                        height: size.height / 20,
+                      ),
+                      const ItensNavegacao(),
+                    ],
+                  ),
                 ),
               )
             ],
