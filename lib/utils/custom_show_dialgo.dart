@@ -9,11 +9,18 @@ Future<dynamic> customShowDialog({
   SQLiteRepository? dadosIMCRepository,
   int? id,
 }) {
+  final size = MediaQuery.of(context).size;
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text(title),
-      content: Text(content),
+      title: Text(
+        title,
+        style: TextStyle(fontSize: size.width * .035),
+      ),
+      content: Text(
+        content,
+        style: TextStyle(fontSize: size.width * .02),
+      ),
       actions: <Widget>[
         id != null
             ? TextButton(
@@ -23,14 +30,25 @@ Future<dynamic> customShowDialog({
                     await dadosIMCRepository?.removerIMC(id);
                   }
                 },
-                child: const Text('Sim'),
+                child: Text(
+                  'Sim',
+                  style: TextStyle(fontSize: size.width * .02),
+                ),
               )
             : Container(),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(false);
           },
-          child: id != null ? const Text('Não') : const Text('Ok'),
+          child: id != null
+              ? Text(
+                  'Não',
+                  style: TextStyle(fontSize: size.width * .02),
+                )
+              : Text(
+                  'Ok',
+                  style: TextStyle(fontSize: size.width * .02),
+                ),
         ),
       ],
     ),

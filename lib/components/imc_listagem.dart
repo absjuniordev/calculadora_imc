@@ -24,9 +24,9 @@ class IMCListagem extends StatefulWidget {
 class _IMCListagemState extends State<IMCListagem> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     widget.imcList.sort((a, b) => b.dateTime.compareTo(a.dateTime));
-    return SizedBox(
-      height: 660,
+    return Expanded(
       child: ListView.builder(
         itemCount: widget.imcList.length,
         scrollDirection: Axis.vertical,
@@ -89,11 +89,11 @@ class _IMCListagemState extends State<IMCListagem> {
             },
             child: Card(
               color: determinarCor(imc.result),
-              elevation: 50,
+              elevation: 10,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 5),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.15,
+                  width: size.width / 1.15,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -103,15 +103,17 @@ class _IMCListagemState extends State<IMCListagem> {
                           children: [
                             Text(
                               "Item: ${verificacao(imc.result)} ",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
+                                fontSize: size.width * .037,
                               ),
                             ),
                             Text(
                               "Calculo em: $formattedDate",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
+                                fontSize: size.width * .03,
                               ),
                             ),
                           ],

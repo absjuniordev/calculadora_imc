@@ -31,47 +31,46 @@ class _IMCListagemPageState extends State<IMCListagemPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: GetFloatingActionButton(
-        onUpdate:(){
-           obterIMC();
-        },
-        peso: pesoController,
-        altura: alturaUsuario,
-        dadosIMCRepository: dadosIMCRepository,
-      ),
-      
-      body: SingleChildScrollView(
-        child: Container(
-            decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-            CustomColors().getGradientMainColor(),
-            CustomColors().getGradientSecondaryColor()
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            transform: const GradientRotation(5),
-          ),
+    final size = MediaQuery.of(context).size;
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: GetFloatingActionButton(
+          onUpdate: () {
+            obterIMC();
+          },
+          peso: pesoController,
+          altura: alturaUsuario,
+          dadosIMCRepository: dadosIMCRepository,
         ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                CustomColors().getGradientMainColor(),
+                CustomColors().getGradientSecondaryColor()
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              transform: const GradientRotation(9),
+            ),
+          ),
           child: Column(
-            
             children: [
-              const SizedBox(height: 55),
+              SizedBox(height: size.height * 0.03),
               ListTile(
-                title: const Text(
+                title: Text(
                   "Calculadora ",
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: size.height * 0.04,
                     color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 leading: InkWell(
                   onTap: () {
                     Navigator.pop(
-                  context,
-                  
-                );
+                      context,
+                    );
                   },
                   child: const Icon(
                     Icons.arrow_back,
@@ -79,41 +78,41 @@ class _IMCListagemPageState extends State<IMCListagemPage> {
                   ),
                 ),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height / 1.157,
-                width: double.infinity,
-                padding: const EdgeInsets.only(
-                  top: 15,
-                  left: 15,
-                ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.035,
+                    left: size.width * 0.06,
                   ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 10,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 240, 234, 234),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                     ),
-                    const Text(
-                      "Historico de IMC",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: IMCListagem(
+                      Text(
+                        "Historico IMC",
+                        style: TextStyle(
+                          fontSize: size.height * 0.03,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      IMCListagem(
                         imcList: _imc,
                         update: obterIMC(),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             ],

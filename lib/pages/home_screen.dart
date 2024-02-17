@@ -59,7 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width / 20),
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width / 20,
+                ),
                 child: ListTile(
                   title: Text(
                     "Calculadora IMC",
