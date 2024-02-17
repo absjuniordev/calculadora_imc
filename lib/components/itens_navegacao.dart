@@ -1,3 +1,4 @@
+import 'package:calculadora_imc/components/imagem_bloco.dart';
 import 'package:calculadora_imc/pages/imc_listagem_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -32,6 +33,10 @@ class ItensNavegacao extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
+              ),
+              child: const ImagemBloco(
+                title: "Calcular IMC",
+                pathImage: 'assets/images/calculadora.png',
               ),
             ),
           ),
