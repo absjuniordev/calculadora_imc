@@ -52,19 +52,9 @@ class ItensNavegacao extends StatelessWidget {
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
               ),
-            ),
-          ),
-        ),
-        InkWell(
-          onTap: () {},
-          child: Card(
-            elevation: 5,
-            child: Container(
-              height: size.height / 6,
-              width: size.width / 3.5,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(166, 233, 230, 230),
-                borderRadius: BorderRadius.circular(10),
+              child: const ImagemBloco(
+                pathImage: 'assets/images/refeicao.png',
+                title: 'Alimentação',
               ),
             ),
           ),
@@ -80,19 +70,9 @@ class ItensNavegacao extends StatelessWidget {
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
               ),
-            ),
-          ),
-        ),
-        InkWell(
-          onTap: () {},
-          child: Card(
-            elevation: 5,
-            child: Container(
-              height: size.height / 6,
-              width: size.width / 3.5,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(166, 233, 230, 230),
-                borderRadius: BorderRadius.circular(10),
+              child: const ImagemBloco(
+                pathImage: 'assets/images/saude.png',
+                title: 'Saúde',
               ),
             ),
           ),
@@ -107,6 +87,46 @@ class ItensNavegacao extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color.fromARGB(166, 233, 230, 230),
                 borderRadius: BorderRadius.circular(10),
+              ),
+              child: const ImagemBloco(
+                pathImage: 'assets/images/academia.png',
+                title: 'Exercicios',
+              ),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () {},
+          child: Card(
+            elevation: 5,
+            child: Container(
+              height: size.height / 6,
+              width: size.width / 3.5,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(166, 233, 230, 230),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const ImagemBloco(
+                pathImage: 'assets/images/dicas.png',
+                title: 'Dicas',
+              ),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () {},
+          child: Card(
+            elevation: 5,
+            child: Container(
+              height: size.height / 6,
+              width: size.width / 3.5,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(166, 233, 230, 230),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const ImagemBloco(
+                pathImage: 'assets/images/definicoes.png',
+                title: 'Definições',
               ),
             ),
           ),
