@@ -60,7 +60,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: size.height * .05),
+                    SizedBox(height: size.height * .07),
                     InkWell(
                       onTap: () async {
                         final ImagePicker picker = ImagePicker();
@@ -197,6 +197,7 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                       elevation: 3,
                       color: const Color.fromARGB(131, 255, 255, 255),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Slider(
                             activeColor:
@@ -205,17 +206,19 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                             min: 120,
                             max: 220,
                             onChanged: (double altura) {
-                              setState(() {
-                                _alturaEscolhida = altura;
-                                alturaController.text =
-                                    altura.toStringAsFixed(0).toString();
-                              });
+                              setState(
+                                () {
+                                  _alturaEscolhida = altura;
+                                  alturaController.text =
+                                      altura.toStringAsFixed(0).toString();
+                                },
+                              );
                             },
                           ),
                           Text(
                             "Altura: ${_alturaEscolhida.toStringAsFixed(0)}",
                             style: TextStyle(
-                              fontSize: size.height / 45,
+                              fontSize: size.height / 40,
                               fontWeight: FontWeight.w700,
                               color: const Color.fromARGB(255, 16, 112, 190),
                             ),
