@@ -28,36 +28,39 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-            CustomColors().getGradientMainColor(),
-            CustomColors().getGradientSecondaryColor()
+              CustomColors().getGradientMainColor(),
+              CustomColors().getGradientSecondaryColor()
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            transform: const GradientRotation(5),
+            transform: const GradientRotation(9),
           ),
         ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: ListView(
             children: [
-              const SizedBox(height: 20),
+              SizedBox(height: size.height * .05),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   color: const Color.fromARGB(108, 158, 158, 158),
                 ),
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-                height: 570,
+                margin: EdgeInsets.symmetric(
+                  vertical: size.height * .01,
+                  horizontal: size.width * .07,
+                ),
+                height: size.height * .7,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 20),
+                    SizedBox(height: size.height * .05),
                     InkWell(
                       onTap: () async {
                         final ImagePicker picker = ImagePicker();
@@ -82,7 +85,8 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                             elevation: 25,
                             shape: const CircleBorder(),
                             child: Container(
-                              height: 140,
+                              height: size.width / 2.9,
+                              width: size.width / 2.9,
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
@@ -93,22 +97,22 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                                     )
                                   : ClipOval(
                                       child: Image.file(
-                                        width: 150,
-                                        height: 150,
+                                        width: size.width / 2.9,
+                                        height: size.height / 2.9,
                                         fit: BoxFit.cover,
                                         File(photo!.path),
-                                        scale: 6,
+                                        scale: size.width / 2,
                                       ),
                                     ),
                             ),
                           ),
-                          const Card(
+                          Card(
                             color: Colors.transparent,
-                            elevation: 50,
+                            elevation: 100,
                             child: Text(
                               "Adicionar foto",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: size.height / 40,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -116,26 +120,29 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: size.height / 45),
                     Card(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: size.height / 50),
                       elevation: 3,
                       color: const Color.fromARGB(131, 255, 255, 255),
                       child: TextField(
                         controller: nomeController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 16, 112, 190),
+                            color: const Color.fromARGB(255, 16, 112, 190),
+                            fontSize: size.height / 45,
                           ),
                           labelText: "Nome",
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: size.height / 45),
                     Card(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: size.height / 45),
                       elevation: 4,
                       color: const Color.fromARGB(131, 255, 255, 255),
                       child: ToggleButtons(
@@ -165,27 +172,28 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                           minHeight: 53.0,
                           minWidth: 139.5,
                         ),
-                        children: const [
+                        children: [
                           Text(
                             'Masculino',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: size.height / 45,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
                             'Feminino',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: size.height / 45,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: size.height / 45),
                     Card(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: size.height / 45),
                       elevation: 3,
                       color: const Color.fromARGB(131, 255, 255, 255),
                       child: Row(
@@ -206,28 +214,28 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                           ),
                           Text(
                             "Altura: ${_alturaEscolhida.toStringAsFixed(0)}",
-                            style: const TextStyle(
-                              fontSize: 15,
+                            style: TextStyle(
+                              fontSize: size.height / 45,
                               fontWeight: FontWeight.w700,
-                              color: Color.fromARGB(255, 16, 112, 190),
+                              color: const Color.fromARGB(255, 16, 112, 190),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: size.height / 40),
                     Card(
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       elevation: 3,
                       color: const Color.fromARGB(131, 255, 255, 255),
                       child: TextField(
                         controller: metaController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
                           labelStyle: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 16, 112, 190),
-                          ),
+                              fontWeight: FontWeight.w600,
+                              color: const Color.fromARGB(255, 16, 112, 190),
+                              fontSize: size.height / 45),
                           labelText: "Meta",
                         ),
                       ),
@@ -240,13 +248,15 @@ class _DadosCadastraisState extends State<DadosCadastrais> {
                   borderRadius: BorderRadius.circular(25),
                   color: const Color.fromARGB(108, 158, 158, 158),
                 ),
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-                height: 70,
+                margin: EdgeInsets.symmetric(
+                  vertical: size.width / 45,
+                  horizontal: size.width / 15,
+                ),
+                height: size.height / 14,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 12,
+                    SizedBox(
+                      height: size.height / 90,
                     ),
                     DadosCadastraisTextButton(
                       altura: alturaController,

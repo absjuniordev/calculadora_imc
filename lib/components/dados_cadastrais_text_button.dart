@@ -44,8 +44,9 @@ class _DadosCadastraisTextButtonState extends State<DadosCadastraisTextButton> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.symmetric(horizontal: size.width / 25),
       elevation: 3,
       color: Colors.transparent,
       child: Container(
@@ -60,7 +61,8 @@ class _DadosCadastraisTextButtonState extends State<DadosCadastraisTextButton> {
             ],
           ),
         ),
-        width: 750,
+        width: size.width / 1,
+        height: size.height / 20,
         child: TextButton(
           onPressed: () async {
             if (widget.nome.text.isEmpty) {
@@ -115,11 +117,11 @@ class _DadosCadastraisTextButtonState extends State<DadosCadastraisTextButton> {
               });
             }
           },
-          child: const Text(
+          child: Text(
             "ENTRAR",
             style: TextStyle(
-              color: Color.fromARGB(255, 16, 112, 190),
-              fontSize: 20,
+              color: const Color.fromARGB(255, 16, 112, 190),
+              fontSize: size.width / 25,
               fontWeight: FontWeight.w700,
             ),
           ),
